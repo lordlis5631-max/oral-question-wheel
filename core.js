@@ -12,19 +12,33 @@ function pool(bank,state,cls){const s=state.sessions[state.active],cfg=state.con
 function choose(bank,state,cls,rng=Math.random){const all=pool(bank,state,cls);if(!all.length)return null;const sections=SECTIONS.filter(s=>all.some(q=>q.section===s));const section=sections[Math.floor(rng()*sections.length)];const levels=[1,2,3].filter(l=>all.some(q=>q.section===section&&q.difficulty===l));const level=levels[Math.floor(rng()*levels.length)];const candidates=all.filter(q=>q.section===section&&q.difficulty===level);return candidates[Math.floor(rng()*candidates.length)];}
 function begin(bank,state,name,cls,rng){const session=state.sessions[state.active];if(session.current)return session.current;if(!CLASSES.includes(cls)||!state.config.classes.includes(cls))throw Error('Выберите класс занятия.');name=String(name).trim().replace(/\s+/g,' ');if(!name||name.length>80)throw Error('Введите имя ученика — до 80 символов.');const q=choose(bank,state,cls,rng);if(!q)throw Error('Подходящих вопросов не осталось. Измените фильтры или начните новое занятие.');let student=state.students.find(x=>x.cls===cls&&x.name.toLocaleLowerCase('ru')===name.toLocaleLowerCase('ru'));if(!student){student={id:uid(),name,cls};state.students.push(student);}session.used[cls].push(q.id);session.current={id:uid(),studentId:student.id,name:student.name,cls,qid:q.id,revealed:false,asked:new Date().toISOString()};return session.current;}
 function finish(state,score){const s=state.sessions[state.active],c=s.current;if(!c)throw Error('Нет текущего вопроса.');if(score!==null&&(!c.revealed||![2,3,4,5].includes(score)))throw Error('Сначала откройте ответ.');if(s.records.some(r=>r.id===c.id))throw Error('Ответ уже сохранён.');const record={...c,score,finished:new Date().toISOString()};s.records.push(record);s.current=null;return record;}
+function pruneEmptySessions(state){
+ const activeId=state.sessions[state.active]?.id;if(!activeId)throw Error('Текущее занятие не найдено.');
+ const kept=state.sessions.filter(s=>s.id===activeId||s.current||s.records.length>0),removed=state.sessions.length-kept.length;
+ if(removed){state.sessions=kept;state.active=kept.findIndex(s=>s.id===activeId);}return removed;
+}
 function sortRecords(records,order='class'){
  return [...records].reverse().sort((a,b)=>(order==='class'?CLASSES.indexOf(a.cls)-CLASSES.indexOf(b.cls):0)||Date.parse(b.finished)-Date.parse(a.finished));
 }
 function removeRecord(state,sessionId,recordId){
  const s=state.sessions.find(x=>x.id===sessionId);if(!s)throw Error('Занятие не найдено.');
  const index=s.records.findIndex(r=>r.id===recordId);if(index<0)throw Error('Запись уже удалена.');
+ const sessionIndex=state.sessions.indexOf(s),nextSessionId=state.sessions[sessionIndex+1]?.id||null;
+ const sessionSnapshot=s.records.length===1&&!s.current&&state.sessions[state.active].id!==s.id?clone(s):null;
  const [record]=s.records.splice(index,1),key=record.studentId+'|'+record.cls;let finalGrade=null;
  if(!s.records.some(r=>r.studentId===record.studentId&&r.cls===record.cls)&&Object.hasOwn(s.finalGrades,key)){finalGrade=s.finalGrades[key];delete s.finalGrades[key];}
- return {sessionId,record:clone(record),index,finalGrade};
+ return {sessionId,record:clone(record),index,finalGrade,sessionSnapshot,nextSessionId};
 }
 function restoreRecord(state,removed){
- const s=state.sessions.find(x=>x.id===removed.sessionId);if(!s)throw Error('Занятие не найдено.');
  if(state.sessions.some(x=>x.records.some(r=>r.id===removed.record.id)))throw Error('Запись уже восстановлена.');
+ const s=state.sessions.find(x=>x.id===removed.sessionId);
+ if(!s){
+  if(!removed.sessionSnapshot)throw Error('Занятие не найдено.');
+  const activeId=state.sessions[state.active].id,restored=clone(removed.sessionSnapshot);
+  let position=state.sessions.findIndex(x=>x.id===removed.nextSessionId);
+  if(position<0)position=state.sessions.findIndex(x=>Date.parse(x.started)>Date.parse(restored.started));
+  state.sessions.splice(position<0?state.sessions.length:position,0,restored);state.active=state.sessions.findIndex(x=>x.id===activeId);return;
+ }
  s.records.splice(Math.min(removed.index,s.records.length),0,clone(removed.record));
  const key=removed.record.studentId+'|'+removed.record.cls;if(removed.finalGrade!==null&&!Object.hasOwn(s.finalGrades,key))s.finalGrades[key]=removed.finalGrade;
 }
@@ -56,5 +70,5 @@ files['xl/workbook.xml']='<workbook xmlns="http://schemas.openxmlformats.org/spr
 files['xl/_rels/workbook.xml.rels']='<Relationships xmlns="http://schemas.openxmlformats.org/package/2006/relationships">'+sheets.map((_,i)=>`<Relationship Id="rId${i+1}" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/worksheet" Target="worksheets/sheet${i+1}.xml"/>`).join('')+'</Relationships>';
 sheets.forEach((s,i)=>{files[`xl/worksheets/sheet${i+1}.xml`]='<worksheet xmlns="http://schemas.openxmlformats.org/spreadsheetml/2006/main"><sheetViews><sheetView workbookViewId="0"><pane ySplit="1" topLeftCell="A2" state="frozen"/></sheetView></sheetViews><sheetData>'+s.rows.map((row,r)=>`<row r="${r+1}">`+row.map((v,c)=>typeof v==='number'?`<c r="${col(c)}${r+1}"><v>${v}</v></c>`:`<c r="${col(c)}${r+1}" t="inlineStr"><is><t xml:space="preserve">${xml(v??'')}</t></is></c>`).join('')+'</row>').join('')+'</sheetData></worksheet>';});
 const crc=bytes=>{let v=0xffffffff;for(const b of bytes){v^=b;for(let i=0;i<8;i++)v=(v>>>1)^((v&1)?0xedb88320:0);}return(v^0xffffffff)>>>0;};const chunks=[],central=[];let offset=0,size=0;const header=n=>new DataView(new ArrayBuffer(n));for(const [name,content]of Object.entries(files)){const n=enc.encode(name),b=enc.encode(content),check=crc(b);let h=header(30);h.setUint32(0,0x04034b50,true);h.setUint16(4,20,true);h.setUint16(6,0x800,true);h.setUint32(14,check,true);h.setUint32(18,b.length,true);h.setUint32(22,b.length,true);h.setUint16(26,n.length,true);chunks.push(new Uint8Array(h.buffer),n,b);let c=header(46);c.setUint32(0,0x02014b50,true);c.setUint16(4,20,true);c.setUint16(6,20,true);c.setUint16(8,0x800,true);c.setUint32(16,check,true);c.setUint32(20,b.length,true);c.setUint32(24,b.length,true);c.setUint16(28,n.length,true);c.setUint32(42,offset,true);central.push(new Uint8Array(c.buffer),n);size+=46+n.length;offset+=30+n.length+b.length;}let end=header(22);end.setUint32(0,0x06054b50,true);end.setUint16(8,Object.keys(files).length,true);end.setUint16(10,Object.keys(files).length,true);end.setUint32(12,size,true);end.setUint32(16,offset,true);const result=new Uint8Array(offset+size+22);let p=0;for(const chunk of [...chunks,...central,new Uint8Array(end.buffer)]){result.set(chunk,p);p+=chunk.length;}return result;}
-const api={CLASSES,LEVELS,SECTIONS,uid,clone,newSession,initial,eligible,pool,choose,begin,finish,sortRecords,removeRecord,restoreRecord,summary,validateBackup,xlsx};if(typeof module!=='undefined')module.exports=api;else root.WheelCore=api;
+const api={CLASSES,LEVELS,SECTIONS,uid,clone,newSession,initial,eligible,pool,choose,begin,finish,pruneEmptySessions,sortRecords,removeRecord,restoreRecord,summary,validateBackup,xlsx};if(typeof module!=='undefined')module.exports=api;else root.WheelCore=api;
 })(globalThis);
