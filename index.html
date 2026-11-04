@@ -6,12 +6,13 @@
   <meta name="description" content="Колесо устного опроса по русскому языку для 7–8 классов. Вопросы, подробные разборы и результаты занятия.">
   <title>Колесо устного опроса · Русский язык</title>
   <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Ccircle cx='32' cy='32' r='30' fill='%23155e59'/%3E%3Ctext x='32' y='44' text-anchor='middle' fill='white' font-size='38' font-family='serif'%3EР%3C/text%3E%3C/svg%3E">
-  <link rel="stylesheet" href="styles.css?v=2">
-  <script defer src="bank.js"></script><script defer src="core.js?v=2"></script><script defer src="app.js?v=3"></script>
+  <link rel="stylesheet" href="styles.css?v=4">
+  <script defer src="bank.js"></script><script defer src="core.js?v=2"></script><script defer src="app.js?v=4"></script>
 </head>
 <body>
 <header class="topbar"><a href="#lesson" class="brand" aria-label="К занятию"><span class="brandmark">Р</span><span>РУССКИЙ ЯЗЫК<small>Практика · 7–8 классы</small></span></a><nav aria-label="Разделы"><button class="nav active" data-nav="lesson">Занятие</button><button class="nav" data-nav="results">Результаты <span id="result-count">0</span></button><button class="nav" data-nav="settings">Настройки</button></nav><button class="quiet" id="new-session">＋ Новое занятие</button></header>
 <main>
+<button class="quiet projector-exit" id="projector-exit" hidden>← Обычный вид <small>Esc</small></button>
 <div id="storage-warning" class="warning" role="alert" hidden></div>
 <section id="lesson-view">
   <div class="intro"><div><p class="eyebrow">СЛОВО — УЧЕНИКУ</p><h1>Колесо устного опроса</h1><p class="muted">Выберите ученика. Остальное решит колесо.</p></div><div class="lesson-tag"><span class="status-dot"></span><span id="session-label"></span></div></div>
@@ -26,7 +27,7 @@
       <button class="primary wide" id="spin-button">Крутить колесо <span>↗</span></button>
       <p id="remaining" class="micro"></p>
     </aside>
-    <div class="wheel-area"><div class="wheel-caption"><span class="eyebrow">ШЕСТЬ РАЗДЕЛОВ · СЛУЧАЙНЫЙ ВЫБОР</span><button class="text-button" id="sections-link">Выбрать разделы</button></div><div class="wheel-wrap"><div class="pointer" aria-hidden="true"></div><svg id="wheel" viewBox="0 0 600 600" aria-label="Колесо разделов русского языка" role="img"></svg><div class="wheel-center" aria-hidden="true">Слово<br><strong>за вами</strong><span>✦</span></div></div><p id="wheel-status" class="wheel-status" role="status" aria-live="polite">Любой вопрос — повод разобраться.</p><div class="wheel-foot"><span>130 вопросов с разборами</span><span>Без повторов в занятии</span></div></div>
+    <div class="wheel-area"><div class="wheel-caption"><span class="eyebrow">ШЕСТЬ РАЗДЕЛОВ · СЛУЧАЙНЫЙ ВЫБОР</span><div class="wheel-tools"><button class="text-button" id="sections-link">Выбрать разделы</button><button class="quiet projector-toggle" id="projector-toggle" aria-pressed="false" title="Увеличить колесо для показа с проектора">⛶ Режим проектора</button></div></div><div class="wheel-wrap"><div class="pointer" aria-hidden="true"></div><svg id="wheel" viewBox="0 0 600 600" aria-label="Колесо разделов русского языка" role="img"></svg><div class="wheel-center" aria-hidden="true">Слово<br><strong>за вами</strong><span>✦</span></div></div><p id="wheel-status" class="wheel-status" role="status" aria-live="polite">Любой вопрос — повод разобраться.</p><div class="wheel-foot"><span>130 вопросов с разборами</span><span>Без повторов в занятии</span></div></div>
   </div>
   <section id="question-screen" hidden></section>
   <section id="receipt-screen" hidden></section>
