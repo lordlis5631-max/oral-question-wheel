@@ -72,16 +72,27 @@ function applyNames(card){
  get("front-sub").textContent="";
  get("back-sub").textContent=frontIsFormula?"Формула: "+card.formula:"Название: "+card.name;
 }
+function stripEditorialNotes(value){
+ return String(value||"")
+  .replace(/\s*\(схема пособия\)/gi,"")
+  .replace(/[,;]\s*схема пособия/gi,"")
+  .replace(/[,;]\s*исправлен коэффициент(?: Cl2 в записи источника)?/gi,"")
+  .replace(/[,;]\s*исправлены продукты OCR-таблицы/gi,"")
+  .replace(/[,;]\s*пример из пособия/gi,"")
+  .replace(/^схема из пособия$/i,"")
+  .replace(/[,;]\s*$/,"")
+  .trim();
+}
 function applyReaction(card){
  text(get("front-label"),state.mode==="quality"?"НАЗОВИТЕ ПРОДУКТЫ И ПРИЗНАК РЕАКЦИИ":"НАЗОВИТЕ ПРОДУКТЫ РЕАКЦИИ");
  const a=get("front-main"),b=get("back-main");
  a.className="main-formula react";b.className="equation";
  a.innerHTML=chem(card.lhs)+" <span style='color:#128871'>→ ?</span>";
  b.innerHTML=chem(card.lhs)+' <span class="arrow">→</span> '+chem(card.rhs);
- get("front-sub").innerHTML=card.condition?'<span class="condition">'+escapeHTML(card.condition)+'</span>':"";
- const sources={"N":"Neorganika.pdf","P":"Неорганическая хими 2.pdf","W":"неорганика 1.pdf"};
- const ref=card.source?card.source.match(/^([NPW])(\d+)$/):null;
- get("back-sub").textContent=card.explanation+(ref?" · Источник: "+sources[ref[1]]+", стр. "+ref[2]:"");
+ const visibleCondition=stripEditorialNotes(card.condition);
+ get("front-sub").innerHTML=visibleCondition?'<span class="condition">'+escapeHTML(visibleCondition)+'</span>':"";
+ // Показываем только химическое пояснение, без ссылок на учебные файлы и редакторских пометок.
+ get("back-sub").textContent=stripEditorialNotes(card.explanation);
 }
 function render(){
  const mode=state.mode;
