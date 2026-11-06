@@ -1,0 +1,577 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#142739">
+  <meta name="description" content="Интерактивный тренажёр по осмысленному решению текстовых задач: значения чисел, смысл арифметических действий, деление с остатком и самостоятельная практика.">
+  <title>Смысл задачи — тренажёр текстовых задач</title>
+  <style>
+:root{--ink:#172b3f;--muted:#647688;--light:#f3f6fa;--line:#dfe7ee;--navy:#142739;--teal:#0b987d;--teal-light:#e5f7f1;--purple:#6955c6;--orange:#d67b36;--blue:#4276bb;--pink:#bc587f;--shadow:0 13px 36px rgba(30,52,67,.08);--radius:24px}
+*{box-sizing:border-box}html{min-height:100%;scroll-behavior:smooth}body{margin:0;font-family:Inter,-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif;background:#f5f7fa;color:var(--ink);font-size:16px;line-height:1.5}button,input{font:inherit}button{cursor:pointer}button:focus-visible,input:focus-visible{outline:3px solid #ffb856;outline-offset:3px}button:disabled{cursor:not-allowed}.app-shell{display:grid;grid-template-columns:288px minmax(0,1fr);min-height:100vh}.sidebar{position:sticky;top:0;height:100vh;background:var(--navy);color:#f5fcff;padding:34px 20px 25px 24px;display:flex;flex-direction:column;z-index:3;overflow-y:auto}.sidebar-header{margin-bottom:38px}.logo{display:flex;align-items:center;gap:12px}.logo-mark{display:grid;place-items:center;width:46px;height:46px;background:#2bd5b7;border-radius:15px;color:#103039;font-size:32px;font-weight:900}.logo-words{font-size:22px;font-weight:850;line-height:1.06;letter-spacing:.08em}.logo-words span{display:block;font-weight:500;letter-spacing:0;font-size:17px;color:#b5c4d1}.logo-caption{color:#98b0bd;font-size:12px;margin-top:16px;max-width:212px}.side-heading{font-size:10px;letter-spacing:.19em;font-weight:800;color:#819ba8;padding:0 11px;margin-bottom:15px}.level-nav{display:grid;gap:8px}.nav-item{border:1px solid transparent;background:transparent;color:#c6d7df;width:100%;border-radius:15px;padding:14px 12px;display:flex;align-items:center;gap:12px;text-align:left;transition:background .15s,border-color .15s}.nav-item:hover{background:#203b50}.nav-item.active{background:#274658;color:white;border-color:#3b6674}.nav-icon{display:grid;place-items:center;width:38px;height:38px;flex:0 0 38px;background:#294355;border-radius:12px;font-size:20px}.nav-item.active .nav-icon{background:#2bd5b7;color:#073a39}.nav-text{min-width:0;flex:1}.nav-number{display:block;font-size:10px;letter-spacing:.12em;color:#9cb3be;font-weight:700}.nav-label{display:block;white-space:nowrap;font-size:13px;font-weight:760;margin-top:2px}.nav-count{font-size:10px;color:#adc3cb;flex-shrink:0}.nav-item.active .nav-count{color:#7cebd2}.side-bottom{margin-top:auto;padding-top:26px}.sidebar-quote{padding:18px;border:1px solid #345568;border-radius:16px;color:#aec1ce;font-size:13px;line-height:1.5;margin-bottom:18px}.sidebar-quote strong{color:#efffff}.teacher-link{background:transparent;border:1px solid #426072;width:100%;color:#e1f6f6;border-radius:13px;padding:12px;display:flex;align-items:center;justify-content:space-between;font-size:13px;font-weight:700}.teacher-link:hover{border-color:#50d4c3}.side-local{color:#75919e;font-size:11px;margin-top:14px;text-align:center}.main-content{padding:0 clamp(24px,4.5vw,78px) 22px;min-width:0;max-width:1530px;width:100%;margin:0 auto}.topbar{height:92px;display:flex;align-items:center;justify-content:space-between}.topbar-label{font-size:12px;letter-spacing:.08em;color:#687c8c;text-transform:uppercase;font-weight:800;display:flex;align-items:center;gap:9px}.pulse-dot{width:8px;height:8px;background:#18b99d;border-radius:50%;box-shadow:0 0 0 5px #d7f3ec}.topbar-button{border:1px solid #d8e5eb;background:white;border-radius:12px;padding:10px 13px;color:#385568;font-weight:700;font-size:12px;display:none}.level-hero{background:linear-gradient(117deg,#163449 0%,#173b49 57%,#146659 100%);color:white;border-radius:28px;padding:34px clamp(28px,3.8vw,56px) 28px;box-shadow:var(--shadow);position:relative;overflow:hidden}.level-hero:before,.level-hero:after{content:'';position:absolute;border:1px solid rgba(222,255,250,.13);width:310px;height:310px;border-radius:100%;right:-115px;top:-185px}.level-hero:after{width:210px;height:210px;right:12px;top:48px}.hero-eyebrow{font-size:11px;letter-spacing:.2em;color:#7bf0d7;font-weight:850;margin-bottom:10px}.level-hero h1{position:relative;margin:0 0 10px;font-size:clamp(30px,3vw,47px);line-height:1.15;letter-spacing:-.035em;font-weight:830;z-index:1}.level-hero p{color:#c5dadc;max-width:660px;font-size:15px;margin:0;position:relative;z-index:1}.hero-footer{margin-top:32px;padding-top:22px;border-top:1px solid #ffffff24;display:flex;align-items:end;gap:28px;position:relative;z-index:1}.hero-stat{display:flex;flex-direction:column;min-width:114px}.hero-stat strong{font-size:21px;line-height:1.2;font-weight:790}.hero-stat span{font-size:11px;color:#b3d0d1;margin-top:4px}.hero-progress-wrap{flex:1;min-width:100px;max-width:260px;margin-left:auto;padding-bottom:4px}.hero-progress-head{display:flex;justify-content:space-between;font-size:11px;color:#c6e0dd;margin-bottom:9px}.hero-progress-head strong{color:white}.hero-progress{height:7px;background:#38606a;border-radius:8px;overflow:hidden}.hero-progress-fill{height:100%;width:0;background:#5ae1bf;transition:width .3s}.below-hero{display:grid;grid-template-columns:minmax(0,1fr) 262px;gap:24px;margin-top:35px;align-items:start}.practice-area{min-width:0}.section-row{display:flex;align-items:end;justify-content:space-between;gap:12px;margin-bottom:17px}.tiny-eyebrow{font-size:10px;color:#7690a1;letter-spacing:.13em;font-weight:850}.section-row h2{margin:4px 0 0;font-size:23px;letter-spacing:-.03em}.step-counter{border:1px solid #e0e8ee;border-radius:10px;background:white;padding:7px 10px;color:#7a8b98;font-size:11px;font-weight:750;white-space:nowrap}.task-dots{display:flex;flex-wrap:wrap;gap:7px;margin-bottom:19px}.task-dot{border:1px solid #d9e3e9;background:#fff;color:#68818e;height:31px;min-width:31px;padding:0 8px;border-radius:9px;font-size:11px;font-weight:750;transition:all .15s}.task-dot:hover{border-color:#9bc6b9;color:#0a8775}.task-dot.active{background:#1e6d68;color:white;border-color:#1e6d68}.task-dot.done{background:#e3f8ee;border-color:#b6e9d4;color:#158369}.task-dot.done.active{background:#1e6d68;color:white}.task-card{background:#fff;border:1px solid #e3eaf0;border-radius:var(--radius);padding:clamp(24px,3vw,40px);box-shadow:var(--shadow);min-height:445px;display:flex;flex-direction:column}.card-topline{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-bottom:21px}.card-task-type{font-size:10px;letter-spacing:.12em;color:#78909b;font-weight:850;text-transform:uppercase}.little-indicator{font-size:11px;background:#e8f7f2;color:#0d826e;padding:6px 10px;border-radius:18px;font-weight:760}.story{font-size:clamp(18px,1.45vw,22px);line-height:1.6;font-weight:560;margin:0;color:#253b4d}.story em{font-style:normal;font-weight:760;color:#0e826e}.story-frame{padding:17px 19px;background:#f4f8f9;border:1px solid #e1ebed;border-left:4px solid #2fae95;border-radius:12px;margin-bottom:19px}.focus-line{display:flex;align-items:center;gap:10px;margin:19px 0 0;color:#5b7280;font-size:13px}.focus-pill{background:#ddf5ed;color:#087c68;padding:5px 13px;border-radius:9px;font-size:22px;font-weight:900}.expression{background:#eef3ff;border:1px solid #dce6ff;color:#2f568b;padding:9px 18px;font-size:29px;font-weight:830;letter-spacing:.02em;border-radius:14px;display:inline-flex;align-items:center;margin:2px 0 20px;align-self:start}.card-question{font-size:clamp(19px,1.8vw,25px);font-weight:820;letter-spacing:-.018em;line-height:1.35;margin:4px 0 19px;color:#162e43}.answer-grid{display:grid;gap:10px}.answer-option{border:1.5px solid #dfE8ed;background:#fff;text-align:left;border-radius:13px;padding:14px 15px;display:flex;align-items:center;gap:12px;color:#2e4453;font-size:14px;line-height:1.4;min-height:55px;transition:background .15s,border-color .15s,transform .1s}.answer-option:not(:disabled):hover{background:#f6fbfa;border-color:#88caba;transform:translateY(-1px)}.answer-letter{border-radius:9px;border:1px solid #dce5e9;color:#708793;background:#f6f8fa;font-weight:820;flex:0 0 26px;height:26px;display:grid;place-items:center;font-size:11px}.answer-option.correct{background:#ebf9ef;border-color:#27aa84;color:#0a6b55}.answer-option.correct .answer-letter{background:#1eaa88;border-color:#1eaa88;color:white}.answer-option.incorrect{background:#fff0ed;border-color:#e79b86;color:#a45237}.answer-option.incorrect .answer-letter{background:#e9ae98;color:#642d19;border-color:#e9ae98}.answer-option:disabled:not(.correct):not(.incorrect){opacity:.57}.calculation{display:flex;gap:12px;align-items:stretch;flex-wrap:wrap}.calculation input{padding:14px 17px;border:1.5px solid #d5e2e8;border-radius:12px;color:#203949;background:#fcfefe;font-size:23px;font-weight:760;width:min(225px,100%);outline:none}.calculation input:focus{border-color:#24aa91;box-shadow:0 0 0 3px #dcf7ef}.calculation button,.primary-button{border:0;background:#137d72;color:white;padding:13px 20px;border-radius:12px;font-weight:760;box-shadow:0 6px 12px #167d7220}.calculation button:hover,.primary-button:hover{background:#0c695e}.input-suffix{color:#61788a;display:flex;align-items:center;font-size:13px}.feedback{margin-top:17px;padding:15px 17px;border:1px solid #d4e8dc;background:#edf9f0;border-radius:13px;color:#225d4a;font-size:14px;line-height:1.5}.feedback.bad{border-color:#f3d5c4;background:#fff7ed;color:#7a5135}.feedback.info{border-color:#cddfe9;background:#f2f8fc;color:#335b71}.feedback-title{display:block;font-weight:840;margin-bottom:4px}.answer-actions{display:flex;gap:10px;align-items:center;justify-content:space-between;flex-wrap:wrap;margin-top:auto;padding-top:18px}.plain-action{background:transparent;border:0;color:#207d75;padding:8px 2px;font-size:13px;font-weight:760;text-decoration:underline;text-underline-offset:4px}.plain-action:hover{color:#075a52}.ghost-action{background:#f5f8fa;border:1px solid #e1e9ed;color:#516d7a;border-radius:11px;padding:9px 13px;font-size:12px;font-weight:730}.ghost-action:hover{background:#eaf1f4}.helper-actions{display:flex;gap:16px;align-items:center;flex-wrap:wrap}.mini-label{color:#8195a0;font-size:11px}.task-controls{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-top:17px}.nav-button{display:inline-flex;gap:10px;align-items:center;border:1px solid #dce7eb;background:white;color:#3d5b66;border-radius:12px;padding:12px 18px;font-weight:760;font-size:13px}.nav-button:hover{background:#eff6f7}.nav-button:disabled{opacity:.42}.nav-button.next{background:#163e49;border-color:#163e49;color:white}.nav-button.next:hover{background:#0d6864}.coach-column{display:grid;gap:16px}.coach-card{border:1px solid #cee9dc;border-radius:19px;background:#eaf8ef;padding:25px}.coach-icon{width:42px;height:42px;background:#b5e9d0;display:grid;place-items:center;color:#0b8c73;font-size:23px;border-radius:13px;margin-bottom:23px}.coach-eyebrow{font-size:10px;letter-spacing:.14em;color:#468d78;font-weight:850}.coach-card h3{font-size:19px;line-height:1.3;margin:9px 0 11px;color:#1e5548;letter-spacing:-.025em}.coach-card p{font-size:13px;color:#52776a;margin:0;line-height:1.55}.coach-motto{border-top:1px solid #c4e1d0;margin-top:19px;padding-top:14px;font-weight:780;font-size:13px;color:#12785f}.micro-card{padding:22px;border:1px solid #e5eaf0;background:#fff;border-radius:19px}.micro-icon{font-size:23px;color:#6f84a1}.micro-card h3{font-size:16px;margin:6px 0 8px}.micro-card p{font-size:12px;line-height:1.6;color:#6b7c8b;margin:0}.micro-card .micro-second{margin-top:10px}.page-footer{margin:40px 0 0;display:flex;justify-content:space-between;gap:12px;color:#8ea0aa;font-size:11px}.division-summary{border:1px solid #ecdfcf;background:#fff8ec;border-radius:14px;padding:14px 17px;margin:-2px 0 19px}.division-equation{font-size:25px;font-weight:870;color:#995d31;letter-spacing:.01em}.division-caption{color:#956f54;font-size:12px;margin-top:3px}.groups-visual{display:flex;gap:5px;align-items:center;margin-top:14px;flex-wrap:wrap}.group-block{width:32px;height:29px;border-radius:8px;background:#d4b58e;border:1px solid #bb9970;display:grid;place-items:center;font-size:10px;font-weight:800;color:#654224}.group-partial{border:2px dashed #d59662;background:#fff6e8;color:#a45f2e}.group-overflow{color:#a47c57;font-size:11px;font-weight:700}.success-panel{margin-top:20px;border-radius:17px;background:linear-gradient(115deg,#e4f9ed,#e7f5f6);border:1px solid #c4ebd6;padding:21px}.success-panel h3{color:#146852;margin:0 0 7px;font-size:20px}.success-panel p{margin:0;color:#376b5d;font-size:14px;line-height:1.6}.done-badge{display:inline-flex;gap:6px;align-items:center;color:#087d65;font-size:12px;font-weight:820;background:#d4f5e5;border-radius:16px;padding:6px 10px;margin-bottom:9px}.level-finish{padding:16px 4px 6px;text-align:center}.level-finish-icon{font-size:56px;margin-bottom:10px}.level-finish h2{font-size:30px;letter-spacing:-.03em;margin:0 0 10px}.level-finish p{max-width:500px;margin:0 auto 23px;color:#617787}.finish-quote{padding:18px 22px;background:#eff8f2;border-radius:13px;color:#176c5c;font-size:15px;font-weight:700;max-width:520px;margin:0 auto 25px}.finish-actions{display:flex;justify-content:center;gap:11px;flex-wrap:wrap}.modal-backdrop[hidden]{display:none}.modal-backdrop{position:fixed;inset:0;background:#0d2336a9;z-index:20;display:grid;place-items:center;padding:18px}.teacher-modal{background:#fff;border-radius:24px;width:min(690px,100%);max-height:calc(100vh - 36px);overflow-y:auto;padding:27px;box-shadow:0 20px 70px #0003}.modal-header{display:flex;justify-content:space-between;align-items:start;gap:20px}.modal-header h2{font-size:28px;letter-spacing:-.035em;margin:2px 0 22px}.icon-close{width:38px;height:38px;border:1px solid #dce6ec;background:#fff;border-radius:10px;font-size:25px;line-height:1}.teacher-intro{font-size:13px;color:#657a88;margin:0 0 18px}.report-cards{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;margin-bottom:20px}.report-card{background:#f2f7f8;border:1px solid #e5ebef;border-radius:14px;padding:13px}.report-card strong{display:block;font-size:25px;color:#173e49}.report-card span{font-size:11px;color:#647d88}.teacher-subtitle{font-size:16px;margin:22px 0 10px}.report-level{display:flex;align-items:center;justify-content:space-between;padding:10px 0;border-bottom:1px solid #eef1f3;gap:12px;font-size:13px}.report-level span{color:#607785}.error-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:9px}.error-item{border:1px solid #e2eaf0;border-radius:12px;padding:11px;font-size:12px;color:#506a79}.error-item strong{display:block;font-size:19px;color:#203e50}.teacher-howto{border-left:4px solid #24ab8f;background:#f1f8f5;padding:15px 18px;border-radius:8px;font-size:13px;line-height:1.7;color:#446756;margin-top:20px}.teacher-howto p{margin:5px 0}.modal-actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:21px;border-top:1px solid #e8eef0;padding-top:18px}.button-secondary,.button-danger{border:1px solid #cbdce2;background:#fff;color:#285e5b;font-weight:740;padding:10px 13px;border-radius:11px;font-size:12px}.button-danger{color:#ac534b;border-color:#efd5d1;margin-left:auto}.button-danger:hover{background:#fff4f3}.button-secondary:hover{background:#f1f8f6}
+@media(max-width:1200px){.below-hero{grid-template-columns:minmax(0,1fr) 235px}.main-content{padding-left:29px;padding-right:29px}.sidebar{width:260px;padding-left:15px}.app-shell{grid-template-columns:260px minmax(0,1fr)}}
+@media(max-width:1020px){.app-shell{display:block}.sidebar{height:auto;width:100%;position:relative;padding:16px 20px;overflow:visible}.sidebar-header{margin:0 0 15px}.logo-mark{width:36px;height:36px;font-size:25px;border-radius:10px}.logo-words{font-size:17px}.logo-words span{font-size:12px}.logo-caption,.side-heading,.side-bottom{display:none}.level-nav{display:flex;overflow-x:auto;gap:8px;scrollbar-width:thin}.nav-item{min-width:183px;padding:9px 11px}.nav-icon{width:32px;height:32px;flex-basis:32px;font-size:16px}.nav-label{font-size:11px}.nav-count{display:none}.main-content{padding:0 24px 30px}.topbar{height:60px}.topbar-button{display:block}}
+@media(max-width:780px){.below-hero{grid-template-columns:1fr}.coach-column{grid-template-columns:repeat(2,minmax(0,1fr))}.task-card{min-height:auto}.level-hero{padding:28px}.page-footer{margin-top:24px}.coach-card,.micro-card{padding:18px}.coach-icon{margin-bottom:12px}}
+@media(max-width:560px){.sidebar{padding:12px 14px}.main-content{padding:0 14px 25px}.topbar-label{font-size:10px}.level-hero{padding:25px 22px;border-radius:21px}.level-hero h1{font-size:30px}.hero-footer{margin-top:23px;gap:15px;flex-wrap:wrap}.hero-progress-wrap{order:3;max-width:none;flex-basis:100%}.hero-stat{min-width:125px}.below-hero{margin-top:24px}.section-row h2{font-size:19px}.step-counter{font-size:10px}.task-card{padding:21px;border-radius:18px}.story{font-size:17px}.story-frame{padding:15px}.card-question{font-size:20px}.answer-option{padding:12px 10px;font-size:13px}.coach-column{grid-template-columns:1fr}.micro-card{display:none}.coach-card{padding:18px}.coach-icon{display:none}.coach-card h3{font-size:16px}.task-controls .nav-button{padding:10px 12px;font-size:12px}.page-footer{flex-direction:column;gap:5px}.teacher-modal{padding:20px}.report-cards{gap:5px}.report-card{padding:9px}.report-card strong{font-size:20px}.error-grid{grid-template-columns:1fr}.button-danger{margin-left:0}.calculation input{width:145px}.topbar-button{font-size:11px}}
+@media(prefers-reduced-motion:reduce){*,*:before,*:after{transition-duration:0s!important;scroll-behavior:auto!important}}
+
+</style>
+</head>
+<body>
+<div class="app-shell">
+  <aside class="sidebar" aria-label="Разделы тренажёра">
+    <div class="sidebar-header">
+      <div class="logo"><span class="logo-mark">≠</span><span class="logo-words">СМЫСЛ<span>задачи</span></span></div>
+      <div class="logo-caption">Математика без угадывания действий</div>
+    </div>
+    <div class="side-heading">МАРШРУТ ОБУЧЕНИЯ</div>
+    <nav id="level-nav" class="level-nav" aria-label="Выберите уровень"></nav>
+    <div class="side-bottom">
+      <div class="sidebar-quote">«Сначала скажи, <strong>что узнаешь</strong>. Потом считай».</div>
+      <button class="teacher-link" id="teacher-open" type="button"><span aria-hidden="true">▤</span> Кабинет учителя <span aria-hidden="true">↗</span></button>
+      <div class="side-local">Без регистрации · Работает без интернета</div>
+    </div>
+  </aside>
+
+  <main class="main-content" id="main-content">
+    <div class="topbar">
+      <div class="topbar-label"><span class="pulse-dot"></span> Тренажёр смыслового решения</div>
+      <button type="button" id="mobile-teacher" class="topbar-button">Для учителя <span aria-hidden="true">↗</span></button>
+    </div>
+
+    <section class="level-hero" aria-labelledby="level-title">
+      <div class="hero-eyebrow" id="hero-eyebrow">УРОВЕНЬ 01 / 05</div>
+      <h1 id="level-title">Что означает число?</h1>
+      <p id="level-subtitle"></p>
+      <div class="hero-footer">
+        <div class="hero-stat"><strong id="overall-complete">0 / 52</strong><span>задач разобрано</span></div>
+        <div class="hero-stat"><strong id="overall-independent">0</strong><span>без подсказок и ошибок</span></div>
+        <div class="hero-progress-wrap"><div class="hero-progress-head"><span>Общий путь</span><strong id="overall-percent">0%</strong></div><div class="hero-progress"><div id="overall-bar" class="hero-progress-fill"></div></div></div>
+      </div>
+    </section>
+
+    <div class="below-hero">
+      <section class="practice-area">
+        <div class="section-row">
+          <div><div class="tiny-eyebrow" id="exercise-label">УПРАЖНЕНИЕ 1 ИЗ 10</div><h2 id="exercise-heading">Разбираем задачу</h2></div>
+          <div class="step-counter" id="step-counter">Шаг 1 / 1</div>
+        </div>
+        <div class="task-dots" id="task-dots" aria-label="Выбор задачи"></div>
+        <article class="task-card" id="task-card" aria-live="polite"></article>
+        <div class="task-controls" id="task-controls"></div>
+      </section>
+      <aside class="coach-column" aria-label="Подсказки и обучение">
+        <div class="coach-card">
+          <div class="coach-icon" aria-hidden="true">✳</div>
+          <div class="coach-eyebrow">ПРАВИЛО УРОКА</div>
+          <h3 id="coach-title">Число — это не просто цифра</h3>
+          <p id="coach-description">Обязательно называй величину, которая стоит за числом.</p>
+          <div class="coach-motto" id="coach-motto">«70 — это 70 чего?»</div>
+        </div>
+        <div class="micro-card">
+          <div class="micro-icon">◉</div>
+          <h3>Как заниматься</h3>
+          <p>Не торопись и не угадывай. Ошибка — повод выяснить смысл, а не просто выбрать другую кнопку.</p>
+          <p class="micro-second">Нажми <strong>«Нужна подсказка»</strong>, если не получается. Время не ограничено.</p>
+        </div>
+      </aside>
+    </div>
+    <footer class="page-footer"><span>52 упражнения · 5 уровней · без таймера</span><span>Прогресс хранится только на этом устройстве</span></footer>
+  </main>
+</div>
+
+<div class="modal-backdrop" id="teacher-modal" hidden>
+  <section class="teacher-modal" role="dialog" aria-modal="true" aria-labelledby="teacher-title">
+    <div class="modal-header"><div><div class="tiny-eyebrow">ПАНЕЛЬ НАСТАВНИКА</div><h2 id="teacher-title">Карта обучения</h2></div><button class="icon-close" id="teacher-close" type="button" aria-label="Закрыть">×</button></div>
+    <div id="teacher-content"></div>
+    <div class="modal-actions"><button id="copy-report" class="button-secondary" type="button">Скопировать отчёт</button><button id="reset-progress" class="button-danger" type="button">Сбросить прогресс</button></div>
+  </section>
+</div>
+<script>
+'use strict';
+
+const LEVELS = [
+  { id:'meaning', number:'01', icon:'🔎', title:'Что означает число?', short:'Не считаем. Разбираемся, что нам дано.', subtitle:'Каждое число относится к конкретной величине. Не начинай считать, пока не можешь объяснить его смысл.', tag:'Понимание условия', tone:'mint', tasks:[
+    {id:'m01', story:'На теплоходе 296 пассажирских мест и 84 места для экипажа. Одна спасательная шлюпка вмещает 70 человек.', focus:'70', prompt:'Что означает число 70?', choices:['Всего 70 человек на теплоходе','70 человек могут поместиться в одну шлюпку','На теплоходе 70 шлюпок'], correct:1, explain:'70 человек — вместимость ОДНОЙ шлюпки, а не количество людей или шлюпок.', hint:'Проверь слова, стоящие рядом с числом 70: «одна шлюпка вмещает…».'},
+    {id:'m02', story:'На теплоходе 296 пассажирских мест и 84 места для экипажа.', focus:'84', prompt:'Что обозначает число 84?', choices:['Количество мест для экипажа','Общее количество мест на теплоходе','Количество свободных мест'], correct:0, explain:'84 — число мест именно для экипажа. Общее число мест пока не найдено.', hint:'Вспомни, чьи именно места названы после числа 84.'},
+    {id:'m03', story:'Для одного парника требуется 14 м плёнки. В наличии 100 м плёнки.', focus:'14', prompt:'Что означает число 14?', choices:['Всего имеется 14 м плёнки','Столько парников можно сделать','Столько метров плёнки нужно на один парник'], correct:2, explain:'14 м — расход на ОДИН парник. 100 м — общий запас.', hint:'Прочитай только фразу «для одного парника требуется…».'},
+    {id:'m04', story:'В каждой упаковке 20 тюльпанов. Купили 10 упаковок.', focus:'20', prompt:'Что означает число 20?', choices:['20 упаковок','Всего купили 20 тюльпанов','В одной упаковке 20 тюльпанов'], correct:2, explain:'20 — количество тюльпанов В ОДНОЙ упаковке, а не во всех десяти.', hint:'К чему относится выражение «в каждой»?'},
+    {id:'m05', story:'Из тюльпанов составляют букеты по 17 цветов.', focus:'17', prompt:'Что означает число 17?', choices:['17 тюльпанов в одном букете','Всего 17 букетов','17 тюльпанов осталось'], correct:0, explain:'17 — размер ОДНОГО букета. Сколько всего букетов, ещё неизвестно.', hint:'«По 17 цветов» — это сколько на один букет.'},
+    {id:'m06', story:'160 кг мандаринов раскладывают в ящики вместимостью 12 кг.', focus:'12', prompt:'Что означает число 12?', choices:['12 кг мандаринов всего','Максимум 12 кг в одном ящике','Потребуется 12 ящиков'], correct:1, explain:'12 кг — вместимость одного ящика. Все 160 кг ещё надо разложить.', hint:'Вместимость — сколько можно положить В ОДИН ящик.'},
+    {id:'m07', story:'На счёте телефона было 250 ₽. После разговора осталось 75 ₽. Минута стоит 2 ₽ 50 коп.', focus:'75', prompt:'Что означает число 75?', choices:['Сколько денег потратили','Стоимость минуты разговора','Сколько денег осталось на счёте'], correct:2, explain:'75 ₽ — остаток на счёте. Стоимость разговора пока нужно вычислить.', hint:'В условии буквально сказано «осталось 75 ₽».'},
+    {id:'m08', story:'Для перевозки нефти используют 43 автоцистерны грузоподъёмностью 32 т каждая.', focus:'32', prompt:'Что означает число 32?', choices:['32 т в одной автоцистерне','Всего перевезут 32 т','Используют 32 автоцистерны'], correct:0, explain:'32 т — груз одной автоцистерны. Таких автоцистерн 43.', hint:'Найди слово «каждая»: оно означает одну цистерну.'},
+    {id:'m09', story:'Есть 23 конфеты. В каждый подарочный набор кладут ровно 5 конфет.', focus:'23', prompt:'Что означает число 23?', choices:['Количество наборов','Количество конфет в наборе','Общее количество конфет'], correct:2, explain:'23 — сколько конфет всего; 5 — размер одного полного набора.', hint:'Сколько конфет мы имеем ДО раскладывания?'},
+    {id:'m10', story:'На экскурсию отправились три автобуса. В каждом по 40 мест.', focus:'3', prompt:'Что означает число 3?', choices:['Общее количество автобусов','Число мест в одном автобусе','Всего три пассажира'], correct:0, explain:'3 — количество автобусов, 40 — число мест В КАЖДОМ автобусе.', hint:'Чего именно три?'},
+  ]},
+  { id:'result', number:'02', icon:'🧠', title:'Что мы получим?', short:'Предсказываем смысл действия до вычисления.', subtitle:'Не обязательно вычислять результат. Сначала назови, какую величину даст выражение.', tag:'Смысл действия', tone:'blue', tasks:[
+    {id:'r01', story:'296 пассажиров и 84 члена экипажа.', expression:'296 + 84', prompt:'Что показывает сумма?', choices:['Сколько всего человек на теплоходе','Сколько человек в одной шлюпке','Сколько шлюпок потребуется'], correct:0, explain:'Сложили две группы людей — получили общее количество людей.', hint:'Если объединить пассажиров и экипаж, что получится?'},
+    {id:'r02', story:'Всего 380 человек; одна шлюпка вмещает 70 человек.', expression:'380 : 70', prompt:'Что даёт деление с остатком?', choices:['Количество мест для экипажа','Число полных групп по 70 и сколько людей осталось','Количество людей на борту'], correct:1, explain:'Деление даёт 5 полных групп по 70 и остаток 30 человек. Но число необходимых шлюпок ещё нужно осмыслить.', hint:'380 человек распределяют по группам, максимум 70 человек в каждой.'},
+    {id:'r03', story:'В одной шлюпке помещается 70 человек. Взяли 5 шлюпок.', expression:'5 × 70', prompt:'Что показывает произведение?', choices:['Сколько людей останется','Сколько полных шлюпок получится из 380 человек','Сколько людей можно разместить в пяти шлюпках'], correct:2, explain:'Это 350 мест в пяти шлюпках.', hint:'Пять одинаковых групп по 70 человек.'},
+    {id:'r04', story:'Всего 380 человек. В пяти шлюпках разместились 350 человек.', expression:'380 − 350', prompt:'Что показывает разность?', choices:['Сколько людей ещё не разместили','Сколько шлюпок осталось','Сколько человек уже разместили'], correct:0, explain:'Это 30 человек, которым всё ещё нужна шлюпка.', hint:'Из общего количества вычли тех, кто уже разместился.'},
+    {id:'r05', story:'В одной упаковке 20 тюльпанов. Купили 10 упаковок.', expression:'20 × 10', prompt:'Что мы узнаем?', choices:['Сколько тюльпанов в одном букете','Сколько тюльпанов всего','Сколько упаковок осталось'], correct:1, explain:'Получим 200 тюльпанов во всех упаковках.', hint:'Одинаковое количество цветов взяли 10 раз.'},
+    {id:'r06', story:'Есть 200 тюльпанов. Для полного букета требуется 17 тюльпанов.', expression:'200 : 17', prompt:'Что обозначат частное и остаток?', choices:['Сколько цветов было в каждой упаковке','Сколько упаковок купили','Сколько полных букетов и сколько цветов осталось'], correct:2, explain:'11 полных букетов и 13 отдельных тюльпанов.', hint:'Из 200 цветов делаем полные группы по 17.'},
+    {id:'r07', story:'43 автоцистерны, каждая перевозит 32 т нефти.', expression:'43 × 32', prompt:'Что показывает произведение?', choices:['Сколько всего тонн нефти требуется перевезти','Сколько железнодорожных цистерн понадобится','Сколько тонн нефти останется'], correct:0, explain:'Это весь груз: 1376 т нефти.', hint:'Сколько тонн во всех 43 автоцистернах вместе?'},
+    {id:'r08', story:'В одну железнодорожную цистерну помещается 60 т нефти. Есть 23 цистерны.', expression:'23 × 60', prompt:'Что получим?', choices:['Количество автоцистерн','Общую вместимость 23 железнодорожных цистерн','Количество нефти в одной автоцистерне'], correct:1, explain:'23 цистерны вмещают 1380 т нефти вместе.', hint:'По 60 т в каждой из 23 цистерн.'},
+    {id:'r09', story:'На счёте было 250 ₽, осталось 75 ₽.', expression:'250 − 75', prompt:'Что показывает разность?', choices:['Стоимость минуты разговора','Сколько минут разговаривали','Сколько денег потратили на разговор'], correct:2, explain:'На разговор потратили 175 ₽.', hint:'Было минус осталось — что израсходовали?'},
+    {id:'r10', story:'На разговор потратили 175 ₽. Каждая минута стоила 2,5 ₽.', expression:'175 : 2,5', prompt:'Что показывает частное?', choices:['Сколько минут длился разговор','Сколько рублей осталось на счёте','Сколько стоила одна минута'], correct:0, explain:'Получим 70 минут разговора.', hint:'Общую стоимость делим на стоимость одной минуты.'},
+    {id:'r11', story:'160 кг мандаринов раскладывают по 12 кг в ящик.', expression:'160 : 12', prompt:'Что можно узнать из деления?', choices:['Сколько килограммов продали','Сколько полных ящиков и сколько килограммов останется','Сколько мандаринов в одной штуке'], correct:1, explain:'13 полных ящиков и ещё 4 кг. Для всех мандаринов потребуется 14-й ящик.', hint:'Проверь, сколько полных групп по 12 и сколько не вошло.'},
+    {id:'r12', story:'На один парник нужно 14 м плёнки. На семь парников — одинаковый расход.', expression:'14 × 7', prompt:'Что мы узнаем?', choices:['Количество парников из 100 м','Сколько метров плёнки останется','Сколько метров плёнки уйдёт на 7 парников'], correct:2, explain:'На семь парников потребуется 98 м плёнки.', hint:'Один парник — 14 м; семь парников — семь раз по 14 м.'},
+  ]},
+  { id:'remainder', number:'03', icon:'🧩', title:'Что делать с остатком?', short:'Разделить мало — нужно понять ответ.', subtitle:'Частное и остаток — это разные величины. Узнай их смысл, а потом реши, прибавлять ли ещё одну группу.', tag:'Деление с остатком', tone:'orange', tasks:[
+    {id:'o01', story:'На теплоходе 380 человек. Одна шлюпка вмещает 70 человек. Сколько шлюпок нужно, чтобы спасти всех?', total:380, per:70, q:5, rem:30, qText:'5 полностью заполненных шлюпок', qWrong:['5 человек в шлюпке','5 свободных мест'], remText:'30 человек остались без места', remWrong:['30 свободных мест','30 дополнительных шлюпок'], finalChoices:['5 шлюпок','6 шлюпок','7 шлюпок'], correct:1, explain:'Пять шлюпок вмещают 350 человек. Остальные 30 должны сесть в шестую шлюпку.', hintFinal:'Цель — разместить ВСЕХ. Можно ли оставить 30 человек без шлюпки?', unit:'шлюпок', decision:'all'},
+    {id:'o02', story:'160 кг мандаринов раскладывают в ящики вместимостью 12 кг. Сколько ящиков потребуется для всех мандаринов?', total:160, per:12, q:13, rem:4, qText:'13 полных ящиков по 12 кг', qWrong:['13 кг всего','13 свободных мест'], remText:'4 кг ещё не разложены', remWrong:['4 пустых ящика','4 кг свободного места в каждом ящике'], finalChoices:['13 ящиков','14 ящиков','15 ящиков'], correct:1, explain:'13 ящиков полны, а 4 кг нельзя оставлять без ящика. Нужен 14-й.', hintFinal:'Все 160 кг должны оказаться в ящиках.', unit:'ящиков', decision:'all'},
+    {id:'o03', story:'Для парника нужно ровно 14 м плёнки. Есть 100 м. Сколько ПОЛНЫХ парников можно изготовить?', total:100, per:14, q:7, rem:2, qText:'7 парников, на каждый хватает 14 м', qWrong:['7 метров плёнки','7 лишних парников'], remText:'2 м плёнки осталось', remWrong:['2 готовых парника','2 м нужно для одного парника'], finalChoices:['7 парников','8 парников','9 парников'], correct:0, explain:'На восьмой парник не хватает 12 м. Из оставшихся 2 м ещё один парник не получится.', hintFinal:'Достаточно ли 2 м для ПОЛНОГО парника, которому нужно 14 м?', unit:'парников', decision:'full'},
+    {id:'o04', story:'Из 200 тюльпанов собирают букеты РОВНО по 17 цветов. Сколько полных букетов получится?', total:200, per:17, q:11, rem:13, qText:'11 готовых букетов по 17 тюльпанов', qWrong:['11 тюльпанов всего','11 неиспользованных цветов'], remText:'13 тюльпанов осталось вне букетов', remWrong:['13 полных букетов','13 цветов в каждом букете'], finalChoices:['11 букетов','12 букетов','13 букетов'], correct:0, explain:'13 оставшихся тюльпанов не образуют полный букет из 17. Ответ — 11.', hintFinal:'В вопросе сказано «полных букетов». Достаточно ли оставшихся цветов для ещё одного?', unit:'букетов', decision:'full'},
+    {id:'o05', story:'23 школьника едут на экскурсию. Одна машина вмещает 5 школьников. Сколько машин необходимо всем?', total:23, per:5, q:4, rem:3, qText:'4 полные машины по 5 учеников', qWrong:['4 ученика всего','4 свободных места'], remText:'3 ученика пока без машины', remWrong:['3 запасные машины','3 места свободны'], finalChoices:['4 машины','5 машин','6 машин'], correct:1, explain:'Четыре машины увезут 20 учеников. Для трёх оставшихся нужна пятая машина.', hintFinal:'Троих ребят нельзя оставить на месте.', unit:'машин', decision:'all'},
+    {id:'o06', story:'Есть 23 конфеты. В подарочный набор кладут РОВНО по 5 конфет. Сколько полных наборов получится?', total:23, per:5, q:4, rem:3, qText:'4 полных подарочных набора', qWrong:['4 конфеты в каждом наборе','4 лишние конфеты'], remText:'3 конфеты останутся без набора', remWrong:['3 полных набора','3 свободных набора'], finalChoices:['4 полных набора','5 полных наборов','6 полных наборов'], correct:0, explain:'Дополнительный набор должен содержать 5 конфет. Трёх недостаточно.', hintFinal:'Нужны именно ПОЛНЫЕ наборы.', unit:'наборов', decision:'full'},
+    {id:'o07', story:'141 человек нужно перевезти на катере вместимостью 70 человек за рейс. Сколько рейсов минимум потребуется?', total:141, per:70, q:2, rem:1, qText:'2 полных рейса по 70 человек', qWrong:['2 человека осталось','2 свободных места'], remText:'1 человек ещё не перевезён', remWrong:['1 свободное место','1 полный катер'], finalChoices:['2 рейса','3 рейса','4 рейса'], correct:1, explain:'За два рейса перевезут 140 человек, а последнему нужен третий рейс.', hintFinal:'Даже один оставшийся человек должен добраться до места.', unit:'рейсов', decision:'all'},
+    {id:'o08', story:'140 человек перевозят катером по 70 человек за рейс. Сколько рейсов нужно?', total:140, per:70, q:2, rem:0, qText:'2 рейса, в каждом по 70 человек', qWrong:['2 человека осталось','2 лишних рейса'], remText:'Никто не остался — остаток равен нулю', remWrong:['Ещё 70 человек ждут','Нужен один дополнительный рейс'], finalChoices:['2 рейса','3 рейса','4 рейса'], correct:0, explain:'140 человек точно помещаются в два рейса. Третий не нужен.', hintFinal:'Остаток 0: все уже перевезены.', unit:'рейсов', decision:'all'},
+    {id:'o09', story:'38 бутылок нужно перевезти в коробках вместимостью 6 бутылок. Сколько коробок нужно для ВСЕХ бутылок?', total:38, per:6, q:6, rem:2, qText:'6 коробок полностью заполнены', qWrong:['6 бутылок всего','6 свободных коробок'], remText:'2 бутылки ещё не упакованы', remWrong:['2 пустые коробки','2 коробки уже закрыли'], finalChoices:['6 коробок','7 коробок','8 коробок'], correct:1, explain:'36 бутылок входят в шесть коробок; две оставшиеся потребуют седьмую.', hintFinal:'Все 38 бутылок должны быть в коробках.', unit:'коробок', decision:'all'},
+    {id:'o10', story:'Из 38 бутылок собирают наборы РОВНО по 6 бутылок. Сколько полных наборов можно собрать?', total:38, per:6, q:6, rem:2, qText:'6 полных наборов по 6 бутылок', qWrong:['6 отдельных бутылок','6 бутылок осталось'], remText:'2 бутылки остались вне наборов', remWrong:['2 полных набора','2 коробки нужны дополнительно'], finalChoices:['6 наборов','7 наборов','8 наборов'], correct:0, explain:'Чтобы собрать седьмой набор, нужны ещё четыре бутылки.', hintFinal:'Нужны только ПОЛНЫЕ наборы из шести бутылок.', unit:'наборов', decision:'full'},
+    {id:'o11', story:'64 книги нужно поставить на полки, каждая вмещает максимум 10 книг. Сколько полок потребуется для всех книг?', total:64, per:10, q:6, rem:4, qText:'6 полных полок по 10 книг', qWrong:['6 книг всего','6 свободных мест'], remText:'4 книги ещё не поставлены', remWrong:['4 полных полки','4 книги на каждой полке'], finalChoices:['6 полок','7 полок','8 полок'], correct:1, explain:'60 книг занимают шесть полок, а для последних четырёх нужна седьмая.', hintFinal:'Четыре оставшиеся книги тоже должны оказаться на полке.', unit:'полок', decision:'all'},
+    {id:'o12', story:'72 спортсмена разделили на команды РОВНО по 8 человек. Сколько полных команд получилось?', total:72, per:8, q:9, rem:0, qText:'9 полных команд по 8 спортсменов', qWrong:['9 спортсменов всего','9 запасных человек'], remText:'Никого не осталось вне команд', remWrong:['Ещё 8 человек ждут','Осталась одна неполная команда'], finalChoices:['8 команд','9 команд','10 команд'], correct:1, explain:'72 делится на 8 без остатка. Получится 9 команд, лишняя не нужна.', hintFinal:'Остатка нет. Сколько уже полных команд?', unit:'команд', decision:'full'},
+  ]},
+  { id:'plan', number:'04', icon:'🧭', title:'Построй план', short:'Сначала одна величина, затем следующая.', subtitle:'На каждом шаге ответь, ЧТО узнаём и КАК. Переходи к вычислению только после построения плана.', tag:'Последовательность действий', tone:'purple', tasks:[
+    {id:'p01', story:'В каждой из 10 упаковок по 20 тюльпанов. Из них делают букеты ровно по 17 тюльпанов. Сколько полных букетов выйдет и сколько цветов останется?', steps:[
+      {ask:'Что необходимо узнать первым?', choices:['Сколько всего тюльпанов','Сколько букетов получилось','Сколько цветов в букете'], correct:0, explain:'Пока неизвестно, сколько цветов в десяти упаковках.', hint:'Чтобы делать букеты, нужно сначала знать общий запас цветов.', skill:'sequence'},
+      {ask:'Каким действием найдём общее число тюльпанов?', choices:['20 : 10','20 × 10','20 + 17'], correct:1, explain:'20 × 10 = 200 тюльпанов во всех упаковках.', hint:'В каждой из 10 упаковок ОДИНАКОВО по 20 цветов.', skill:'operation'},
+      {ask:'Что делаем дальше, когда знаем, что всего 200 тюльпанов?', choices:['200 × 17','200 − 10','200 : 17 с остатком'], correct:2, explain:'Из 200 тюльпанов формируем полные группы по 17.', hint:'Сколько полных групп по 17 помещается в 200?', skill:'operation'},
+      {ask:'Сколько ПОЛНЫХ букетов получилось?', type:'number', answer:11, suffix:'букетов', explain:'200 : 17 = 11 (ост. 13). Полных букетов 11.', hint:'17 × 11 = 187, а 17 × 12 = 204 — это больше 200.', skill:'calculate'},
+      {ask:'Сколько тюльпанов осталось?', type:'number', answer:13, suffix:'тюльпанов', explain:'200 − 11 × 17 = 13 тюльпанов.', hint:'В 11 букетах 187 цветов. Сколько осталось от 200?', skill:'calculate'},
+    ], summary:'20 × 10 = 200 цветов → 200 : 17 = 11 (ост. 13). Ответ: 11 полных букетов, 13 цветов осталось.'},
+    {id:'p02', story:'На теплоходе 296 пассажиров и 84 члена экипажа. Шлюпка вмещает 70 человек. Сколько шлюпок требуется для всех?', steps:[
+      {ask:'Что узнаём первым?', choices:['Общее количество людей','Количество свободных мест в одной шлюпке','Число готовых шлюпок'], correct:0, explain:'Надо объединить пассажиров и экипаж.', hint:'Сколько человек всего необходимо спасти?', skill:'sequence'},
+      {ask:'Как найти общее количество людей?', choices:['296 − 84','296 : 84','296 + 84'], correct:2, explain:'296 + 84 = 380 человек.', hint:'Пассажиры И экипаж — обе группы надо учесть.', skill:'operation'},
+      {ask:'Какое действие поможет распределить людей по шлюпкам?', choices:['380 × 70','380 : 70 с остатком','380 − 70'], correct:1, explain:'380 : 70 = 5 (ост. 30).', hint:'Сколько групп по 70 можно составить из 380?', skill:'operation'},
+      {ask:'Сколько шлюпок понадобится ВСЕМ 380 людям?', type:'number', answer:6, suffix:'шлюпок', explain:'Пять шлюпок — 350 мест, ещё 30 человек сядут в шестую.', hint:'После пяти полных шлюпок 30 человек всё ещё ждут места.', skill:'remainder'},
+    ], summary:'296 + 84 = 380 человек → 380 : 70 = 5 (ост. 30). Ответ: 6 шлюпок.'},
+    {id:'p03', story:'43 автоцистерны привезли по 32 т нефти. Её перекачивают в железнодорожные цистерны вместимостью 60 т. Сколько цистерн потребуется для всей нефти и сколько свободного места останется в последней?', steps:[
+      {ask:'Что нужно узнать первым?', choices:['Весь объём привезённой нефти','Сколько топлива в одной железнодорожной цистерне','Сколько цистерн уже заполнены'], correct:0, explain:'Общую массу нефти ещё не нашли.', hint:'Сколько всего тонн привезли 43 машины?', skill:'sequence'},
+      {ask:'Как узнать массу всей нефти?', choices:['43 : 32','43 + 60','43 × 32'], correct:2, explain:'43 × 32 = 1376 т нефти.', hint:'43 одинаковых груза по 32 т.', skill:'operation'},
+      {ask:'Как определить число цистерн вместимостью 60 т?', choices:['1376 − 60','1376 : 60 с остатком','1376 × 60'], correct:1, explain:'1376 : 60 = 22 (ост. 56). Последняя цистерна будет неполной.', hint:'Раздели общий объём на вместимость одной цистерны.', skill:'operation'},
+      {ask:'Сколько железнодорожных цистерн понадобится?', type:'number', answer:23, suffix:'цистерны', explain:'22 полных и ещё одна для оставшихся 56 т.', hint:'56 т нельзя оставить без ёмкости.', skill:'remainder'},
+      {ask:'Сколько тонн свободного места останется в последней цистерне?', type:'number', answer:4, suffix:'т', explain:'В последней цистерне 60 − 56 = 4 т свободного места.', hint:'Вместимость 60 т, туда нальют 56 т.', skill:'calculate'},
+    ], summary:'43 × 32 = 1376 т → 1376 : 60 = 22 (ост. 56) → нужно 23 цистерны; в последней останется 4 т свободного места.'},
+    {id:'p04', story:'На счёте было 250 ₽. После разговора осталось 75 ₽. Минута стоила 2,5 ₽. Сколько минут длился разговор?', steps:[
+      {ask:'Что надо узнать сначала?', choices:['Стоимость одной минуты','Общую стоимость разговора','Количество минут'], correct:1, explain:'Сначала выясняем, сколько денег списали.', hint:'Знаем, сколько было и сколько осталось.', skill:'sequence'},
+      {ask:'Как найдём потраченную сумму?', choices:['250 − 75','250 + 75','250 : 75'], correct:0, explain:'250 − 75 = 175 ₽ потратили.', hint:'Было минус осталось.', skill:'operation'},
+      {ask:'Как узнать длительность разговора?', choices:['175 × 2,5','175 − 2,5','175 : 2,5'], correct:2, explain:'Общую стоимость делим на стоимость минуты.', hint:'Сколько отрезков по 2,5 ₽ в 175 ₽?', skill:'operation'},
+      {ask:'Сколько минут разговаривали?', type:'number', answer:70, suffix:'минут', explain:'175 : 2,5 = 70 минут.', hint:'2,5 × 70 = 175.', skill:'calculate'},
+    ], summary:'250 − 75 = 175 ₽ потрачено → 175 : 2,5 = 70 минут.'},
+    {id:'p05', story:'В библиотеку привезли 7 коробок по 12 книг. 15 книг отдали в классы. Сколько книг осталось?', steps:[
+      {ask:'Что узнаём сначала?', choices:['Общее количество новых книг','Сколько книг в одной коробке','Сколько коробок осталось'], correct:0, explain:'Всего книг пока неизвестно.', hint:'Сначала сложим все коробки как один запас.', skill:'sequence'},
+      {ask:'Каким действием найдём весь запас книг?', choices:['7 + 12','7 × 12','12 : 7'], correct:1, explain:'7 × 12 = 84 книги.', hint:'Семь коробок по 12 книг.', skill:'operation'},
+      {ask:'Как найти, сколько осталось после раздачи 15 книг?', choices:['84 − 15','84 + 15','84 : 15'], correct:0, explain:'От общего запаса отнимаем розданные книги.', hint:'Книг стало меньше.', skill:'operation'},
+      {ask:'Сколько книг осталось?', type:'number', answer:69, suffix:'книг', explain:'84 − 15 = 69 книг.', hint:'Из 84 вычти 15.', skill:'calculate'},
+    ], summary:'7 × 12 = 84 книги → 84 − 15 = 69 книг.'},
+    {id:'p06', story:'На тренировку пришли 4 группы по 9 детей. Для каждого нужна одна бутылка воды. В ящике 5 бутылок. Сколько ящиков потребуется, чтобы хватило всем?', steps:[
+      {ask:'Что узнаём сначала?', choices:['Число полных ящиков','Количество всех детей','Сколько бутылок в одном ящике'], correct:1, explain:'Сначала узнаём, сколько всего детей и, следовательно, бутылок нужно.', hint:'Четыре группы по девять человек.', skill:'sequence'},
+      {ask:'Как узнать количество детей?', choices:['4 : 9','4 + 9','4 × 9'], correct:2, explain:'4 × 9 = 36 детей, значит, нужно 36 бутылок.', hint:'Четыре раза по девять.', skill:'operation'},
+      {ask:'Как узнать число ящиков?', choices:['36 : 5 с остатком','36 × 5','36 − 5'], correct:0, explain:'36 : 5 = 7 (ост. 1).', hint:'Сколько групп по пять бутылок помещается в 36?', skill:'operation'},
+      {ask:'Сколько ящиков нужно, чтобы хватило каждому?', type:'number', answer:8, suffix:'ящиков', explain:'Семь ящиков дадут 35 бутылок, для последней нужен восьмой.', hint:'Одна бутылка тоже требует отдельного ящика.', skill:'remainder'},
+    ], summary:'4 × 9 = 36 детей → 36 : 5 = 7 (ост. 1) → нужно 8 ящиков.'},
+    {id:'p07', story:'В лагере 6 отрядов по 14 детей. В автобусе 40 мест. Сколько автобусов нужно, чтобы перевезти всех детей одновременно?', steps:[
+      {ask:'Что узнаём сначала?', choices:['Сколько всего детей','Сколько автобусов уже есть','Количество мест в одном автобусе'], correct:0, explain:'Нужно найти число детей во всех отрядах.', hint:'Шесть одинаковых отрядов по 14 человек.', skill:'sequence'},
+      {ask:'Как вычислить число детей?', choices:['6 + 14','6 × 14','14 : 6'], correct:1, explain:'6 × 14 = 84 ребёнка.', hint:'Шесть раз по четырнадцать.', skill:'operation'},
+      {ask:'Как проверить вместимость автобусов?', choices:['84 × 40','84 − 40','84 : 40 с остатком'], correct:2, explain:'84 : 40 = 2 (ост. 4).', hint:'Сколько групп по 40 человек можно составить?', skill:'operation'},
+      {ask:'Сколько автобусов потребуется?', type:'number', answer:3, suffix:'автобуса', explain:'В два автобуса сядут 80 детей, четырём понадобится третий.', hint:'Цель — перевезти ВСЕХ.', skill:'remainder'},
+    ], summary:'6 × 14 = 84 → 84 : 40 = 2 (ост. 4) → нужно 3 автобуса.'},
+    {id:'p08', story:'В магазин привезли 5 упаковок по 18 открыток. Из открыток составляют полные наборы ровно по 8 штук. Сколько наборов выйдет и сколько открыток останется?', steps:[
+      {ask:'Что узнаём первым?', choices:['Сколько всего открыток','Сколько открыток в наборе','Сколько наборов готово'], correct:0, explain:'Сначала нужно узнать общий запас.', hint:'Пять упаковок по восемнадцать открыток.', skill:'sequence'},
+      {ask:'Как найти весь запас?', choices:['5 × 18','18 − 5','18 : 5'], correct:0, explain:'5 × 18 = 90 открыток.', hint:'Одинаковые группы: 5 по 18.', skill:'operation'},
+      {ask:'Что делать дальше?', choices:['90 + 8','90 : 8 с остатком','90 × 8'], correct:1, explain:'90 : 8 = 11 (ост. 2).', hint:'Сколько ПОЛНЫХ групп по 8 получится?', skill:'operation'},
+      {ask:'Сколько полных наборов?', type:'number', answer:11, suffix:'наборов', explain:'11 наборов по 8, два лишних предмета не составят новый набор.', hint:'8 × 11 = 88, а 8 × 12 = 96.', skill:'remainder'},
+      {ask:'Сколько открыток останется?', type:'number', answer:2, suffix:'открытки', explain:'90 − 88 = 2 открытки.', hint:'В наборах 11 × 8 = 88 открыток.', skill:'calculate'},
+    ], summary:'5 × 18 = 90 → 90 : 8 = 11 (ост. 2). Ответ: 11 наборов и 2 открытки осталось.'},
+  ]},
+  { id:'solo', number:'05', icon:'🏁', title:'Реши сам', short:'Подсказки доступны, но сначала попробуй самостоятельно.', subtitle:'Сам выбираешь первую величину, вычисляешь её и находишь ответ. Не угадывай действие — проверяй смысл чисел.', tag:'Самостоятельная практика', tone:'pink', tasks:[
+    {id:'s01', story:'На теплоходе 296 пассажиров и 84 члена экипажа. В шлюпке 70 мест. Какое минимальное число шлюпок позволит разместить всех?', firstAsk:'Что узнаём первым?', firstOptions:['Сколько людей всего','Количество шлюпок','Сколько свободных мест'], firstCorrect:0, firstValueAsk:'Сколько всего человек на теплоходе?', firstValue:380, finalAsk:'Сколько минимум шлюпок потребуется?', finalValue:6, suffix:'шлюпок', hint1:'Объедини две группы людей: 296 и 84.', hint2:'380 : 70 = 5 (ост. 30). Сколько шлюпок нужно оставшимся людям?', explain:'296 + 84 = 380; 380 : 70 = 5 (ост. 30) → 6 шлюпок.', finalSkill:'remainder'},
+    {id:'s02', story:'Купили 10 упаковок по 20 тюльпанов. Из них составляют букеты ровно по 17 цветов. Сколько полных букетов получится?', firstAsk:'Что узнаём первым?', firstOptions:['Сколько упаковок осталось','Сколько всего тюльпанов','Сколько цветов в букете'], firstCorrect:1, firstValueAsk:'Сколько тюльпанов всего?', firstValue:200, finalAsk:'Сколько полных букетов?', finalValue:11, suffix:'букетов', hint1:'20 цветов × 10 упаковок.', hint2:'200 : 17 = 11 (ост. 13). Достаточно ли 13 цветов для ещё одного полного букета?', explain:'20 × 10 = 200; 200 : 17 = 11 (ост. 13) → 11 полных букетов.', finalSkill:'remainder'},
+    {id:'s03', story:'В каждой из 5 пачек по 18 тетрадей. 12 тетрадей раздали. Сколько тетрадей осталось?', firstAsk:'Что узнаём первым?', firstOptions:['Сколько тетрадей раздали','Сколько тетрадей всего было','Сколько пачек осталось'], firstCorrect:1, firstValueAsk:'Сколько тетрадей было во всех пачках?', firstValue:90, finalAsk:'Сколько осталось после раздачи?', finalValue:78, suffix:'тетрадей', hint1:'В каждой из пяти пачек по 18.', hint2:'Сколько останется от 90, если отдать 12?', explain:'5 × 18 = 90; 90 − 12 = 78 тетрадей.', finalSkill:'calculate'},
+    {id:'s04', story:'Из 4 пакетов по 15 конфет собирают подарочные наборы ровно по 8 конфет. Сколько полных наборов получится?', firstAsk:'Что узнаём первым?', firstOptions:['Сколько конфет во всех пакетах','Сколько наборов получится','Сколько конфет останется'], firstCorrect:0, firstValueAsk:'Сколько всего конфет?', firstValue:60, finalAsk:'Сколько ПОЛНЫХ наборов?', finalValue:7, suffix:'наборов', hint1:'4 × 15.', hint2:'60 : 8 = 7 (ост. 4). Четырёх конфет мало для восьмого полного набора.', explain:'4 × 15 = 60; 60 : 8 = 7 (ост. 4) → 7 полных наборов.', finalSkill:'remainder'},
+    {id:'s05', story:'На экскурсию едут 4 класса по 28 учеников. В одном автобусе 40 мест. Сколько автобусов требуется для всех?', firstAsk:'Что узнаём первым?', firstOptions:['Сколько всего учеников','Сколько мест в автобусе','Сколько автобусов уже выделили'], firstCorrect:0, firstValueAsk:'Сколько всего учеников?', firstValue:112, finalAsk:'Сколько нужно автобусов?', finalValue:3, suffix:'автобуса', hint1:'Четыре класса по 28 человек.', hint2:'112 : 40 = 2 (ост. 32). Всем ли хватит двух автобусов?', explain:'4 × 28 = 112; 112 : 40 = 2 (ост. 32) → 3 автобуса.', finalSkill:'remainder'},
+    {id:'s06', story:'На занятие пришли 3 группы по 16 человек. В зале 60 мест. Сколько мест останется свободными, если все сядут?', firstAsk:'Что узнаём первым?', firstOptions:['Сколько свободных мест','Сколько всего пришло людей','Сколько людей в одной группе'], firstCorrect:1, firstValueAsk:'Сколько человек пришло?', firstValue:48, finalAsk:'Сколько свободных мест останется?', finalValue:12, suffix:'мест', hint1:'3 группы × 16 человек.', hint2:'В зале 60 мест, займут 48. Сколько останется?', explain:'3 × 16 = 48; 60 − 48 = 12 мест.', finalSkill:'calculate'},
+    {id:'s07', story:'На телефоне было 250 ₽, после разговора осталось 75 ₽. Одна минута разговора стоит 2,5 ₽. Сколько минут говорили?', firstAsk:'Что узнаём первым?', firstOptions:['Сколько минут говорили','Стоимость одной минуты','Сколько денег потратили'], firstCorrect:2, firstValueAsk:'Сколько рублей потратили?', firstValue:175, finalAsk:'Сколько минут длился разговор?', finalValue:70, suffix:'минут', hint1:'250 ₽ было, 75 ₽ осталось.', hint2:'175 ₽ раздели на стоимость минуты — 2,5 ₽.', explain:'250 − 75 = 175; 175 : 2,5 = 70 минут.', finalSkill:'operation'},
+    {id:'s08', story:'Есть 3 ящика по 26 бутылок. Чтобы перевезти ВСЕ бутылки, их переставляют в коробки по 12 бутылок. Сколько коробок потребуется?', firstAsk:'Что узнаём первым?', firstOptions:['Сколько полных коробок','Сколько всего бутылок','Сколько коробок уже упаковано'], firstCorrect:1, firstValueAsk:'Сколько всего бутылок?', firstValue:78, finalAsk:'Сколько коробок потребуется?', finalValue:7, suffix:'коробок', hint1:'3 × 26 бутылок.', hint2:'78 : 12 = 6 (ост. 6). Половина коробки — всё равно отдельная коробка.', explain:'3 × 26 = 78; 78 : 12 = 6 (ост. 6) → 7 коробок.', finalSkill:'remainder'},
+    {id:'s09', story:'В 6 упаковках по 24 карандаша. Школе раздали 95 карандашей. Сколько карандашей осталось?', firstAsk:'Что узнаём первым?', firstOptions:['Количество упаковок','Общее количество карандашей','Сколько раздали'], firstCorrect:1, firstValueAsk:'Сколько карандашей было?', firstValue:144, finalAsk:'Сколько осталось?', finalValue:49, suffix:'карандашей', hint1:'6 упаковок по 24.', hint2:'Из общего запаса 144 отдали 95.', explain:'6 × 24 = 144; 144 − 95 = 49 карандашей.', finalSkill:'calculate'},
+    {id:'s10', story:'В кабинете 9 столов по 6 мест. Пришли 52 ученика, и все сели. Сколько мест свободно?', firstAsk:'Что узнаём первым?', firstOptions:['Сколько всего мест','Сколько учеников пришли','Сколько свободных столов'], firstCorrect:0, firstValueAsk:'Сколько всего мест?', firstValue:54, finalAsk:'Сколько мест свободно?', finalValue:2, suffix:'места', hint1:'9 столов × 6 мест.', hint2:'Всего 54 места, заняли 52.', explain:'9 × 6 = 54; 54 − 52 = 2 свободных места.', finalSkill:'calculate'},
+  ]},
+];
+
+if (typeof module !== 'undefined' && module.exports) module.exports = LEVELS;
+
+</script>
+<script>
+'use strict';
+
+(() => {
+  const STORAGE_KEY = 'smysl-zadachi-trainer-v1';
+  const SKILL_LABELS = {
+    meaning:'Значение величин', result:'Смысл результата', operation:'Выбор действия',
+    sequence:'Порядок решения', remainder:'Деление с остатком', calculate:'Вычисление'
+  };
+  const COACH = {
+    meaning: ['Число — это не просто цифра','Назови, о чём говорит каждое число: «70 человек в одной шлюпке», а не просто «70».','«70 — это 70 чего?»'],
+    result: ['Сначала смысл, потом счёт','Прежде чем вычислять, закончи фразу: «Этим действием я узнаю…».','«Что покажет ответ?»'],
+    remainder: ['Остаток — часть истории','Частное показывает полные группы. Остаток — то, что в них не вошло. Смотри на вопрос задачи.','«Куда денутся оставшиеся?»'],
+    plan: ['Одно действие — одна новая величина','После каждого шага останавливайся: «Что я сейчас узнал? Нужно ли это для ответа?»','«Что мне ещё неизвестно?»'],
+    solo: ['Не угадывай действие','Выбери сначала, какую величину ищешь. Сделай промежуточный шаг и проверь, что он означает.','«Что я нашёл первым?»']
+  };
+  const TOTAL = LEVELS.reduce((sum, level) => sum + level.tasks.length, 0);
+  const $ = (id) => document.getElementById(id);
+  let progress = readProgress();
+  const state = {
+    levelIndex:0, taskIndex:0, stepIndex:0, solved:false, revealed:false,
+    usedHint:false, hadError:false, hintVisible:false, message:null, wrongChoice:null, inputValue:'',
+    errorKeys:new Set()
+  };
+
+  function readProgress(){
+    try {
+      const raw = localStorage.getItem(STORAGE_KEY);
+      if (raw) {
+        const parsed = JSON.parse(raw);
+        if(parsed && typeof parsed === 'object' && parsed.completed && parsed.errors) {
+          return {completed:parsed.completed, errors:parsed.errors, last:parsed.last || null};
+        }
+      }
+    }catch(e) { /* localStorage can be disabled; training continues in memory */ }
+    return {completed:{}, errors:{}, last:null};
+  }
+  function saveProgress(){
+    try{localStorage.setItem(STORAGE_KEY,JSON.stringify(progress));}catch(e){/* ephemeral mode */}
+  }
+  function escapeHtml(value){
+    return String(value).replace(/[&<>"']/g, char => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[char]));
+  }
+  function storyHtml(story){
+    return escapeHtml(story).replace(/(\d+(?:[.,]\d+)?)/g, '<em>$1</em>');
+  }
+  function currentLevel(){return LEVELS[state.levelIndex];}
+  function currentTask(){return currentLevel().tasks[state.taskIndex];}
+  function isTaskDone(id){return Boolean(progress.completed[id]);}
+  function completedCount(){return LEVELS.flatMap(level=>level.tasks).filter(task=>isTaskDone(task.id)).length;}
+  function independentCount(){return LEVELS.flatMap(level=>level.tasks).filter(task=>progress.completed[task.id]?.independent).length;}
+  function countForLevel(level){return level.tasks.filter(task=>isTaskDone(task.id)).length;}
+  function percent(){return Math.round(completedCount() / TOTAL * 100);}
+
+  function buildSteps(level, task){
+    if(level.id === 'meaning' || level.id === 'result') {
+      return [{type:'choice',ask:task.prompt,choices:task.choices,correct:task.correct,explain:task.explain,hint:task.hint,skill:level.id}];
+    }
+    if(level.id === 'remainder'){
+      const qCandidates=[task.qText,...task.qWrong];
+      const rCandidates=[task.remText,...task.remWrong];
+      // Reasoning comes AFTER picking a number: a lucky guess is not yet an explanation.
+      const goodReason = task.rem === 0
+        ? 'Остатка нет: все уже распределены, дополнительная группа не нужна.'
+        : task.decision === 'full'
+          ? 'Остатка недостаточно для ещё одной ПОЛНОЙ группы.'
+          : 'Остаток тоже нужно разместить, поэтому понадобится дополнительная группа.';
+      const wrongReasons = task.rem === 0
+        ? ['После любого деления нужно прибавить ещё одну группу.','Остаток 0 означает, что полных групп не получилось.']
+        : ['При любом остатке всегда надо прибавлять единицу — вопрос неважен.','Нужно брать только частное, даже если кто-то или что-то не поместилось.'];
+      const reasonChoices=[wrongReasons[0],goodReason,wrongReasons[1]];
+      const shift=task.q%3;
+      const shiftedReasons=reasonChoices.slice(shift).concat(reasonChoices.slice(0,shift));
+      return [
+        {type:'choice',ask:`Что означает число ${task.q} в результате деления?`,choices:qCandidates,correct:0,explain:task.qText+'.',hint:`${task.q} × ${task.per} = ${task.q*task.per}. Столько единиц уже помещается в полные группы.`,skill:'remainder'},
+        {type:'choice',ask:`Что означает остаток ${task.rem}?`,choices:rCandidates,correct:0,explain:task.remText+'.',hint:task.rem ? `После полных групп использовано ${task.q * task.per} из ${task.total}. Что осталось?` : 'После полных групп ничего не осталось: деление без остатка.',skill:'remainder'},
+        {type:'choice',ask:'Каков ответ именно на вопрос задачи?',choices:task.finalChoices,correct:task.correct,explain:task.explain,hint:task.hintFinal,skill:'remainder'},
+        {type:'choice',ask:'Почему этот ответ подходит к условию?',choices:shiftedReasons,correct:shiftedReasons.indexOf(goodReason),explain:task.explain,hint:'Проверь два слова в условии: «ВСЕХ» или «ПОЛНЫХ». От них зависит смысл остатка.',skill:'remainder'}
+      ];
+    }
+    if(level.id === 'plan') return task.steps.map(s => ({type:s.type||'choice',...s}));
+    if(level.id === 'solo'){
+      return [
+        {type:'choice',ask:task.firstAsk,choices:task.firstOptions,correct:task.firstCorrect,explain:'Верно: сначала определим нужную промежуточную величину.',hint:'Что ты должен знать, прежде чем отвечать на главный вопрос?',skill:'sequence'},
+        {type:'number',ask:task.firstValueAsk,answer:task.firstValue,suffix:'',explain:`Промежуточный результат — ${task.firstValue}. Он нужен для следующего шага.`,hint:task.hint1,skill:'calculate'},
+        {type:'number',ask:task.finalAsk,answer:task.finalValue,suffix:task.suffix,explain:task.explain,hint:task.hint2,skill:task.finalSkill||'calculate'}
+      ];
+    }
+    return [];
+  }
+  function currentSteps(){return buildSteps(currentLevel(),currentTask());}
+  function currentStep(){return currentSteps()[state.stepIndex];}
+
+  function resetStepState(){state.solved=false;state.revealed=false;state.hintVisible=false;state.message=null;state.wrongChoice=null;state.inputValue='';}
+  function startTask(levelIdx, taskIdx){
+    state.levelIndex=Math.max(0,Math.min(levelIdx,LEVELS.length-1));
+    state.taskIndex=Math.max(0,Math.min(taskIdx,LEVELS[state.levelIndex].tasks.length));
+    state.stepIndex=0;state.hadError=false;state.usedHint=false;state.errorKeys=new Set();
+    resetStepState();
+    progress.last={level:state.levelIndex,task:state.taskIndex};saveProgress();
+    render();
+  }
+  function startLevel(levelIdx){startTask(levelIdx,0);}
+  function finishTask(){
+    const task=currentTask();
+    const earlier=progress.completed[task.id];
+    progress.completed[task.id]={
+      independent:Boolean(earlier?.independent || (!state.hadError && !state.usedHint)),
+      doneCount:(earlier?.doneCount||0)+1
+    };
+    saveProgress();
+  }
+  function recordError(step, answerKey){
+    state.hadError=true;
+    const key=currentTask().id+'|'+state.stepIndex+'|'+answerKey;
+    if(!state.errorKeys.has(key)){
+      state.errorKeys.add(key);
+      const skill=step.skill||currentLevel().id;
+      progress.errors[skill]=(progress.errors[skill]||0)+1;
+      saveProgress();
+    }
+  }
+  function answerChoice(index){
+    if(state.solved||!currentTask()||currentStep().type !== 'choice')return;
+    const step=currentStep();
+    if(index===step.correct){
+      state.solved=true;state.wrongChoice=null;
+      state.message={kind:'good',title:'Да, именно так!',text:step.explain};
+      if(state.stepIndex === currentSteps().length-1)finishTask();
+    }else{
+      recordError(step,'c'+index);
+      state.wrongChoice=index;
+      state.message={kind:'bad',title:'Проверим смысл',text: wrongHint(step,index)};
+    }
+    render();
+  }
+  function wrongHint(step,index){
+    if(currentLevel().id==='remainder' && state.stepIndex>=2){
+      return 'Вычисление уже готово. Спроси себя: нужно разместить всех оставшихся или сделать только полные группы?';
+    }
+    if(step.type==='choice' && state.stepIndex===0 && currentLevel().id==='meaning'){
+      return 'Смотри не только на число, но и на слова рядом с ним. К какой величине оно относится?';
+    }
+    if(currentLevel().id==='result'){
+      return 'Представь, что действие уже выполнено. Что измеряется полученным числом: люди, деньги, предметы или группы?';
+    }
+    return 'Сопоставь ответ с вопросом. Какую величину нам нужно найти именно сейчас?';
+  }
+  function submitNumber(){
+    if(state.solved||currentStep().type!=='number')return;
+    const input=$('number-input');
+    if(!input)return;
+    const raw=input.value.trim();
+    const numeric=Number(raw.replace(',','.'));
+    if(!raw || !Number.isFinite(numeric)){
+      state.message={kind:'bad',title:'Нужно число',text:'Введи число, которое отвечает именно на этот вопрос.'};render();return;
+    }
+    state.inputValue=raw;
+    const step=currentStep();
+    if(Math.abs(numeric-step.answer)<1e-9){
+      state.solved=true;state.message={kind:'good',title:'Верно!',text:step.explain};
+      if(state.stepIndex===currentSteps().length-1)finishTask();
+    }else{
+      recordError(step,'n'+raw);
+      state.message={kind:'bad',title:'Проверим результат',text:'Сейчас получено другое число. Подумай, что оно обозначает, и проверь действие. Можно взять подсказку.'};
+    }
+    render();
+    if(!state.solved){const box=$('number-input');if(box){box.focus();box.select();}}
+  }
+  function showHint(){
+    if(state.solved)return;
+    state.hintVisible=true;state.usedHint=true;
+    state.message={kind:'info',title:'Подсказка',text:currentStep().hint};render();
+  }
+  function revealAnswer(){
+    if(state.solved || !state.hintVisible)return;
+    state.usedHint=true;state.solved=true;state.revealed=true;
+    const step=currentStep();
+    const label=step.type==='number' ? String(step.answer)+(step.suffix?' '+step.suffix:'') : step.choices[step.correct];
+    state.message={kind:'info',title:'Разбираем правильный ответ: '+label,text:step.explain};
+    if(state.stepIndex===currentSteps().length-1)finishTask();
+    render();
+  }
+  function nextStep(){
+    if(!state.solved)return;
+    const count=currentSteps().length;
+    if(state.stepIndex<count-1){state.stepIndex++;resetStepState();render();}
+    else nextTask();
+  }
+  function nextTask(){
+    const idx=state.taskIndex+1;
+    if(idx>=currentLevel().tasks.length){
+      state.taskIndex=currentLevel().tasks.length;
+      progress.last={level:state.levelIndex,task:state.taskIndex};saveProgress();render();
+    }else startTask(state.levelIndex,idx);
+  }
+  function prevTask(){if(state.taskIndex>0)startTask(state.levelIndex,state.taskIndex-1);}
+
+  function renderNav(){
+    $('level-nav').innerHTML=LEVELS.map((level,i)=>
+      `<button type="button" class="nav-item ${i===state.levelIndex?'active':''}" data-level="${i}" ${i===state.levelIndex?'aria-current="step"':''}>
+        <span class="nav-icon" aria-hidden="true">${level.icon}</span><span class="nav-text"><span class="nav-number">УРОВЕНЬ ${level.number}</span><span class="nav-label">${escapeHtml(level.title)}</span></span><span class="nav-count">${countForLevel(level)}/${level.tasks.length}</span>
+      </button>`).join('');
+    $('level-nav').querySelectorAll('[data-level]').forEach(el=>el.addEventListener('click',()=>startLevel(Number(el.dataset.level))));
+  }
+  function renderHero(){
+    const level=currentLevel();
+    $('hero-eyebrow').textContent=`УРОВЕНЬ ${level.number} / 05 · ${level.tag.toUpperCase()}`;
+    $('level-title').textContent=level.title;
+    $('level-subtitle').textContent=level.subtitle;
+    $('overall-complete').textContent=completedCount()+' / '+TOTAL;
+    $('overall-independent').textContent=independentCount();
+    $('overall-percent').textContent=percent()+'%';
+    $('overall-bar').style.width=percent()+'%';
+    const [title,description,motto]=COACH[level.id];
+    $('coach-title').textContent=title;$('coach-description').textContent=description;$('coach-motto').textContent=motto;
+  }
+  function renderDots(){
+    const level=currentLevel();
+    $('task-dots').innerHTML=level.tasks.map((task,i)=>{
+      const done=isTaskDone(task.id);
+      return `<button type="button" class="task-dot ${state.taskIndex===i?'active':''} ${done?'done':''}" title="Задача ${i+1}${done?' — разобрана':''}" aria-label="Задача ${i+1}${done?' выполнена':''}" data-task="${i}">${done?'✓':i+1}</button>`;
+    }).join('');
+    $('task-dots').querySelectorAll('button').forEach(el=>el.addEventListener('click',()=>startTask(state.levelIndex,Number(el.dataset.task))));
+  }
+  function taskTypeLabel(level){
+    return ({meaning:'Значение числа',result:'Смысл действия',remainder:'Деление с остатком',plan:'План решения',solo:'Самостоятельная задача'})[level.id];
+  }
+  function renderDivision(task){
+    let groups='';
+    const show=Math.min(task.q,6);
+    for(let i=0;i<show;i++)groups+=`<span class="group-block" title="Полная группа">${task.per}</span>`;
+    if(task.q>show)groups+=`<span class="group-overflow">+ ещё ${task.q-show} полных</span>`;
+    if(task.rem>0)groups+=`<span class="group-block group-partial" title="Остаток">+${task.rem}</span>`;
+    return `<div class="division-summary"><div class="division-equation">${task.total} : ${task.per} = ${task.q} (ост. ${task.rem})</div>
+      <div class="division-caption">Частное = полные группы · остаток = то, что не вошло</div><div class="groups-visual" aria-hidden="true">${groups}</div></div>`;
+  }
+  function renderChoices(step){
+    return `<div class="answer-grid" role="group" aria-label="Варианты ответа">${step.choices.map((choice,i)=>{
+      const cls=state.solved&&i===step.correct?'correct':(!state.solved&&state.wrongChoice===i?'incorrect':'');
+      return `<button type="button" class="answer-option ${cls}" data-answer="${i}" ${state.solved?'disabled':''}>
+        <span class="answer-letter">${String.fromCharCode(65+i)}</span><span>${escapeHtml(choice)}</span></button>`;
+    }).join('')}</div>`;
+  }
+  function renderNumber(step){
+    return `<form class="calculation" id="number-form" autocomplete="off"><input id="number-input" name="answer" type="text" inputmode="decimal" spellcheck="false" aria-label="Введи числовой ответ" placeholder="Твой ответ" value="${escapeHtml(state.inputValue)}" ${state.solved?'disabled':''}>
+      ${step.suffix?`<span class="input-suffix">${escapeHtml(step.suffix)}</span>`:''}
+      ${state.solved?'':`<button type="submit">Проверить ↗</button>`}</form>`;
+  }
+  function renderFeedback(){
+    if(!state.message)return '';
+    const cls=state.message.kind==='bad'?'bad':(state.message.kind==='info'?'info':'');
+    return `<div class="feedback ${cls}" role="status"><strong class="feedback-title">${escapeHtml(state.message.title)}</strong>${escapeHtml(state.message.text)}</div>`;
+  }
+  function renderTask(){
+    const level=currentLevel();
+    const task=level.tasks[state.taskIndex];
+    const finished=!task;
+    $('exercise-label').textContent=finished?'УРОВЕНЬ ПРОЙДЕН':`УПРАЖНЕНИЕ ${state.taskIndex+1} ИЗ ${level.tasks.length}`;
+    $('exercise-heading').textContent=finished?'Отличная работа!':level.short;
+    $('step-counter').textContent=finished?'Все задачи':'Шаг '+(state.stepIndex+1)+' / '+currentSteps().length;
+    if(finished){renderFinish();renderControls();return;}
+    const step=currentStep();
+    const card= $('task-card');
+    const part = level.id==='meaning'
+      ? `<div class="focus-line">Разбираем число <span class="focus-pill">${escapeHtml(task.focus)}</span></div>`
+      : level.id==='result' ? `<div class="focus-line">Что мы узнаем с помощью выражения?</div><div class="expression">${escapeHtml(task.expression)}</div>`
+      : level.id==='remainder' ? renderDivision(task):'';
+    const answer=step.type==='number'?renderNumber(step):renderChoices(step);
+    const assisted=state.hadError||state.usedHint;
+    let done='';
+    if(state.solved && state.stepIndex===currentSteps().length-1){
+      done=`<div class="success-panel"><div class="done-badge">✓ Задача разобрана${assisted?' с поддержкой':' самостоятельно'}</div>
+        <h3>Теперь ты знаешь, что означает ответ</h3><p>${escapeHtml(task.summary || (level.id==='remainder'?task.explain:step.explain))}</p></div>`;
+    }
+    card.innerHTML=`<div class="card-topline"><div class="card-task-type">${taskTypeLabel(level)} · ${state.stepIndex+1} / ${currentSteps().length}</div><div class="little-indicator">${state.solved?'✓ Шаг выполнен':'Без спешки'}</div></div>
+      <div class="story-frame"><p class="story">${storyHtml(task.story)}</p></div>${part}
+      <h3 class="card-question">${escapeHtml(step.ask)}</h3>${answer}${renderFeedback()}${done}
+      <div class="answer-actions"><div class="helper-actions">
+        ${!state.solved?`<button type="button" class="plain-action" id="hint-button">${state.hintVisible?'Подсказка показана':'✳ Нужна подсказка'}</button>`:''}
+        ${!state.solved&&state.hintVisible?`<button type="button" class="ghost-action" id="reveal-button">Показать ответ</button>`:''}
+      </div>${state.solved?`<button type="button" id="continue-button" class="primary-button">${state.stepIndex===currentSteps().length-1?'Следующая задача':'Следующий шаг'} &nbsp; →</button>`:`<span class="mini-label">${step.type==='number'?'Введи число и проверь его смысл':'Выбери один вариант'}</span>`}</div>`;
+    card.querySelectorAll('[data-answer]').forEach(button=>button.addEventListener('click',()=>answerChoice(Number(button.dataset.answer))));
+    const form=$('number-form');if(form)form.addEventListener('submit',e=>{e.preventDefault();submitNumber();});
+    const hint=$('hint-button');if(hint)hint.addEventListener('click',showHint);
+    const reveal=$('reveal-button');if(reveal)reveal.addEventListener('click',revealAnswer);
+    const cont=$('continue-button');if(cont)cont.addEventListener('click',nextStep);
+  }
+  function renderFinish(){
+    const idx=state.levelIndex;
+    const total=currentLevel().tasks.length;
+    const done=countForLevel(currentLevel());
+    $('task-card').innerHTML=`<div class="level-finish"><div class="level-finish-icon">🎉</div>
+      <h2>Уровень завершён</h2><p>Ты разобрал ${done} из ${total} задач этого уровня. Вернуться к любому примеру можно по номерам выше.</p>
+      <div class="finish-quote">Запомни: успешное решение — это когда ты можешь сказать, ЧТО нашёл, а не просто получить число.</div>
+      <div class="finish-actions">${idx<LEVELS.length-1?`<button type="button" class="primary-button" id="next-level-button">Перейти к уровню ${idx+2} →</button>`:`<button type="button" class="primary-button" id="restart-button">Повторить с первого уровня ↺</button>`}<button type="button" class="nav-button" id="review-button">Повторить этот уровень</button></div></div>`;
+    const next=$('next-level-button');if(next)next.addEventListener('click',()=>startLevel(state.levelIndex+1));
+    const restart=$('restart-button');if(restart)restart.addEventListener('click',()=>startLevel(0));
+    $('review-button').addEventListener('click',()=>startLevel(state.levelIndex));
+  }
+  function renderControls(){
+    const atEnd=state.taskIndex>=currentLevel().tasks.length;
+    const last=state.taskIndex===currentLevel().tasks.length-1;
+    $('task-controls').innerHTML=`<button type="button" class="nav-button" id="prev-task" ${state.taskIndex===0?'disabled':''}>← Предыдущая задача</button>
+      ${!atEnd?`<button type="button" class="nav-button next" id="next-task" ${(!isTaskDone(currentTask().id) || state.stepIndex<currentSteps().length-1 || !state.solved)?'disabled':''}>${last?'Закончить уровень':'Следующая задача'} →</button>`:''}`;
+    const prev=$('prev-task');if(prev)prev.addEventListener('click',prevTask);
+    const next=$('next-task');if(next)next.addEventListener('click',nextTask);
+  }
+  function render(){renderNav();renderHero();renderDots();renderTask();renderControls();}
+
+  function buildReportText(){
+    const lines=['ТРЕНАЖЁР «СМЫСЛ ЗАДАЧИ»','Разобрано: '+completedCount()+'/'+TOTAL,'Без ошибок и подсказок: '+independentCount(),''];
+    for(const level of LEVELS){
+      lines.push(level.title+': '+countForLevel(level)+'/'+level.tasks.length);
+    }
+    lines.push('','Зафиксированные попытки с ошибками:');
+    for(const [key,label] of Object.entries(SKILL_LABELS)) lines.push(label+': '+(progress.errors[key]||0));
+    lines.push('','Оценивать стоит не только верный ответ, но и умение назвать смысл промежуточного результата.');
+    return lines.join('\n');
+  }
+  function showTeacher(){
+    const errors=Object.entries(SKILL_LABELS).map(([key,title])=>({key,title,count:progress.errors[key]||0}));
+    const attempts=errors.reduce((sum,e)=>sum+e.count,0);
+    $('teacher-content').innerHTML=`<p class="teacher-intro">Результаты хранятся локально в браузере. «Без подсказок» — задачи, где все шаги хотя бы один раз пройдены без ошибок и подсказок. Счётчики ошибок показывают трудные места, но не являются оценкой ученика.</p>
+      <div class="report-cards"><div class="report-card"><strong>${completedCount()}/${TOTAL}</strong><span>разобрано</span></div><div class="report-card"><strong>${independentCount()}</strong><span>самостоятельно</span></div><div class="report-card"><strong>${attempts}</strong><span>неверных попыток</span></div></div>
+      <h3 class="teacher-subtitle">Продвижение по уровням</h3>${LEVELS.map(level=>`<div class="report-level"><strong>${escapeHtml(level.title)}</strong><span>${countForLevel(level)} из ${level.tasks.length}</span></div>`).join('')}
+      <h3 class="teacher-subtitle">Какие навыки вызывают затруднения</h3><div class="error-grid">${errors.map(err=>`<div class="error-item"><strong>${err.count}</strong>${escapeHtml(err.title)}</div>`).join('')}</div>
+      <div class="teacher-howto"><strong>Как использовать на занятии</strong><p>1. Попросите ученика сначала произнести смысл выбранного ответа. 2. Не объясняйте за него сразу: предложите сравнить варианты. 3. После каждого вычисления спросите: «Получили сколько ЧЕГО?» 4. Если ученик случайно угадал, вернитесь к задаче и измените числа.</p><p>Небольшая диагностика: пусть сравнит «23 ученика, по 5 в машине» с «23 конфеты, строго по 5 в наборе». Результат деления одинаков, ответ на вопрос — разный.</p></div>`;
+    $('teacher-modal').hidden=false;
+    $('teacher-close').focus();
+  }
+  function hideTeacher(){$('teacher-modal').hidden=true;}
+  async function copyReport(){
+    const report=buildReportText();
+    try{await navigator.clipboard.writeText(report);$('copy-report').textContent='Отчёт скопирован ✓';}
+    catch(e){
+      const textarea=document.createElement('textarea');textarea.value=report;document.body.appendChild(textarea);textarea.select();
+      try{document.execCommand('copy');$('copy-report').textContent='Отчёт скопирован ✓';}catch(err){$('copy-report').textContent='Не удалось скопировать';}
+      textarea.remove();
+    }
+  }
+  function resetProgress(){
+    if(!window.confirm('Удалить все результаты на этом устройстве? Это действие нельзя отменить.'))return;
+    progress={completed:{},errors:{},last:null};saveProgress();hideTeacher();startLevel(0);
+  }
+  function setupTeacher(){
+    for(const id of ['teacher-open','mobile-teacher'])$(id).addEventListener('click',showTeacher);
+    $('teacher-close').addEventListener('click',hideTeacher);
+    $('teacher-modal').addEventListener('click',event=>{if(event.target===$('teacher-modal'))hideTeacher();});
+    $('copy-report').addEventListener('click',copyReport);
+    $('reset-progress').addEventListener('click',resetProgress);
+  }
+  function setupKeyboard(){
+    document.addEventListener('keydown',event=>{
+      if(event.key==='Escape'&&!$('teacher-modal').hidden){hideTeacher();return;}
+      if(!$('teacher-modal').hidden)return;
+      if(['INPUT','TEXTAREA','SELECT'].includes(document.activeElement?.tagName))return;
+      if(currentTask()&&!state.solved&&currentStep().type==='choice'&&/^[1-3]$/.test(event.key)){
+        answerChoice(Number(event.key)-1);
+      }
+    });
+  }
+  function init(){
+    setupTeacher();setupKeyboard();
+    if(progress.last && Number.isInteger(progress.last.level) && Number.isInteger(progress.last.task)){
+      startTask(progress.last.level,progress.last.task);
+    }else startLevel(0);
+  }
+  init();
+})();
+
+</script>
+</body>
+</html>
