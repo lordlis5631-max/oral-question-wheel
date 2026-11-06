@@ -1,0 +1,108 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#13233f">
+<meta name="description" content="Интерактивные карточки по неорганической химии: формулы, названия веществ и продукты реакций. Переверните карточку, чтобы узнать ответ.">
+<title>Химия · Карточки для запоминания</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='18' fill='%2313233f'/%3E%3Ctext x='32' y='44' text-anchor='middle' font-size='36' fill='%23a4e8bc'%3EH%3C/text%3E%3C/svg%3E">
+<style>
+:root{color-scheme:light;--ink:#14243c;--muted:#64758c;--border:#e1e6ec;--bg:#f5f7f6;--white:#fff;--accent:#0c806e;--mint:#dbf7e9;--shadow:0 22px 65px rgba(20,36,60,.085);font-family:Inter,-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif}
+*{box-sizing:border-box}
+body{margin:0;background:radial-gradient(circle at 5% 0%,#e8f4ef 0%,transparent 30%),radial-gradient(circle at 96% 13%,#e8e8ff 0%,transparent 28%),var(--bg);color:var(--ink);min-height:100vh}
+button,select{font:inherit}button{cursor:pointer}button:focus-visible,select:focus-visible,.flip:focus-visible{outline:3px solid #ffa94d;outline-offset:4px}
+.sitebar{height:78px;background:rgba(255,255,255,.82);border-bottom:1px solid rgba(218,226,235,.85);backdrop-filter:blur(16px)}
+.bar-inner,.main{width:min(1120px,calc(100% - 44px));margin:auto}
+.bar-inner{display:flex;align-items:center;justify-content:space-between;height:100%;gap:14px}
+.logo{display:flex;align-items:center;gap:12px;font-weight:850;letter-spacing:-.03em;font-size:20px}
+.symbol{height:44px;width:44px;background:#172b49;color:#a5e8c8;display:grid;place-items:center;border-radius:13px;font-weight:900;font-size:24px;box-shadow:inset -6px -6px 0 #283d5b}
+.logo small{display:block;color:var(--muted);font-weight:600;letter-spacing:0;font-size:11px;margin-top:2px}
+.top-note{font-size:13px;color:#586b81;display:flex;align-items:center;gap:9px}.dot{width:8px;height:8px;border-radius:50%;background:#23b37f}
+.main{padding:52px 0 34px}
+.intro{display:flex;gap:18px;justify-content:space-between;align-items:end;margin-bottom:30px}
+.kicker{text-transform:uppercase;color:#15816e;font-weight:850;letter-spacing:.16em;font-size:12px;margin:0 0 12px}
+h1{font-size:clamp(32px,4.5vw,54px);letter-spacing:-.06em;line-height:1.04;margin:0 0 15px;font-weight:850}
+.desc{color:var(--muted);font-size:16px;line-height:1.55;max-width:650px;margin:0}
+.counts{display:flex;gap:12px;flex-shrink:0}
+.count{background:#fff;border:1px solid var(--border);border-radius:18px;min-width:122px;padding:16px 17px;box-shadow:0 8px 22px #13233f05}
+.count strong{font-size:27px;display:block;letter-spacing:-.05em}.count span{font-size:12px;color:var(--muted);font-weight:600}
+.workspace{background:rgba(255,255,255,.77);border:1px solid #e1e7ec;border-radius:27px;box-shadow:var(--shadow);padding:25px}
+.tabs{display:grid;grid-template-columns:1fr 1fr;gap:8px;background:#f1f4f5;padding:6px;border-radius:17px;margin-bottom:24px}
+.tab{border:0;background:transparent;border-radius:12px;padding:15px 20px;color:#64758a;font-weight:800;text-align:center;transition:background .2s,color .2s,box-shadow .2s}
+.tab.active{background:#fff;color:#142d43;box-shadow:0 3px 12px #1b304b12}
+.tab .emoji{margin-right:9px}.tab small{display:block;font-size:11px;color:#7b8a9b;font-weight:500;margin-top:4px}
+.toolbar{display:grid;grid-template-columns:1fr 1fr auto;gap:15px;align-items:end;margin-bottom:20px}
+.field label{display:block;color:#65758a;font-size:12px;font-weight:800;letter-spacing:.02em;margin-bottom:8px}
+select{appearance:none;background:#fff url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%2364758c' stroke-width='2'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E") no-repeat right 15px center;padding:13px 42px 13px 16px;border:1px solid #dbe2e8;border-radius:12px;min-height:47px;color:var(--ink);width:100%;font-weight:650}
+.btn{border:1px solid #dbe2e8;background:#fff;border-radius:12px;padding:12px 19px;font-weight:800;color:var(--ink);min-height:47px;transition:transform .16s,background .16s}
+.btn:hover{background:#f4f9f7}.btn:active{transform:scale(.98)}
+.btn.shuffle{white-space:nowrap}
+.deck-header{display:flex;align-items:center;justify-content:space-between;gap:14px;padding:15px 2px 13px}
+.deck-meta{display:flex;gap:11px;align-items:center}.deck-badge{background:#e4f4ec;color:#157c62;border-radius:7px;padding:7px 10px;font-size:11px;font-weight:900;letter-spacing:.07em;text-transform:uppercase}.deck-label{font-size:13px;color:var(--muted);font-weight:650}
+.deck-progress{font-size:14px;color:#586a80;font-weight:800;font-variant-numeric:tabular-nums}
+.track{height:6px;background:#e8eded;border-radius:20px;overflow:hidden;margin-bottom:24px}.fill{height:100%;background:linear-gradient(90deg,#4ecb9c,#11927f);width:0%;transition:width .25s ease;border-radius:20px}
+.flip{perspective:1200px;display:block;position:relative;width:100%;height:395px;border:0;background:none;padding:0;cursor:pointer;text-align:center}
+.flip-inner{position:relative;width:100%;height:100%;transform-style:preserve-3d;transition:transform .64s cubic-bezier(.2,.75,.18,1)}
+.flip.is-flipped .flip-inner{transform:rotateY(180deg)}
+.face{position:absolute;inset:0;backface-visibility:hidden;-webkit-backface-visibility:hidden;border-radius:22px;border:1px solid #dfe5e8;display:flex;align-items:center;justify-content:center;flex-direction:column;padding:35px 42px;overflow:auto}
+.front{background:radial-gradient(circle at 96% 8%,#e6f8ed,transparent 28%),linear-gradient(140deg,#fff,#f9fcfa)}
+.back{transform:rotateY(180deg);background:radial-gradient(circle at 0% 95%,#e1effd,transparent 38%),linear-gradient(145deg,#fff,#f6fbff)}
+.flip::after{content:"";position:absolute;inset:0;border-radius:22px;pointer-events:none;box-shadow:0 13px 38px #13233f09}
+.face-label{font-size:11px;font-weight:900;letter-spacing:.18em;color:#14816b;text-transform:uppercase;position:absolute;top:28px;left:34px;right:34px}
+.back .face-label{color:#4b65a7}
+.main-formula{font-size:clamp(35px,5.3vw,66px);line-height:1.3;letter-spacing:-.035em;font-weight:780;overflow-wrap:anywhere;max-width:100%;font-variant-numeric:lining-nums}
+.main-formula sub,.equation sub{font-size:.58em;vertical-align:sub;line-height:0}
+.main-formula.name{font-size:clamp(29px,3.7vw,48px);line-height:1.18}
+.main-formula.react{font-size:clamp(30px,4.4vw,54px)}
+.secondary-text{margin-top:16px;color:#52647a;font-size:clamp(15px,1.7vw,19px);line-height:1.45;font-weight:600;max-width:730px}
+.equation{font-weight:800;font-size:clamp(23px,3vw,41px);line-height:1.7;overflow-wrap:anywhere;letter-spacing:-.035em;max-width:100%}
+.equation .arrow{color:#148970;font-weight:900;display:inline-block;margin:0 10px}
+.answer-note{font-size:clamp(15px,1.9vw,20px);color:#556c81;font-weight:600;margin-top:19px;max-width:660px;line-height:1.45}
+.flip-tip{position:absolute;bottom:24px;color:#7b8999;font-size:12px;font-weight:700;left:12px;right:12px}
+.condition{margin:0 0 18px;padding:7px 13px;color:#647b91;background:#f1f5f7;border-radius:50px;font-weight:750;font-size:12px;max-width:100%}
+.controls{display:grid;grid-template-columns:1fr 1.3fr 1fr;gap:11px;margin-top:18px}
+.controls .btn{height:56px;font-weight:800;font-size:15px}
+.btn.primary{background:#142c45;border-color:#142c45;color:white;box-shadow:0 8px 18px #1630481a}
+.btn.primary:hover{background:#1e405d}
+.btn:disabled{opacity:.38;cursor:not-allowed}
+.help{display:flex;justify-content:space-between;gap:15px;align-items:center;color:#8492a1;font-size:12px;padding:18px 5px 3px}
+kbd{font:inherit;color:#4e6074;background:#eef2f4;border:1px solid #dde4e9;border-bottom-width:2px;padding:2px 6px;border-radius:5px}
+footer{color:#8493a1;font-size:12px;line-height:1.6;text-align:center;padding:23px 0 4px}
+.empty{padding:50px;text-align:center;background:#fff;border-radius:16px;color:#52647a}
+[hidden]{display:none!important}
+@media(max-width:760px){.main{padding:35px 0 20px}.intro{align-items:start;flex-direction:column}.counts{width:100%}.count{min-width:0;flex:1}.workspace{padding:14px;border-radius:20px}.toolbar{grid-template-columns:1fr 1fr}.btn.shuffle{grid-column:1/-1}.flip{height:350px}.face{padding:31px 22px}.face-label{top:22px}.controls .btn{padding:11px 6px}.help{display:block;text-align:center}.help .keyboard{display:none}}
+@media(max-width:480px){.bar-inner,.main{width:calc(100% - 26px)}.sitebar{height:68px}.logo{font-size:16px}.symbol{width:39px;height:39px}.top-note{font-size:11px}.tabs{gap:2px;padding:4px}.tab{padding:12px 8px;font-size:13px}.tab small{font-size:10px}.toolbar{grid-template-columns:1fr}.btn.shuffle{grid-column:auto}.flip{height:320px}.main-formula{font-size:clamp(33px,9vw,54px)}.equation{font-size:clamp(23px,5.5vw,31px)}.main-formula.name{font-size:31px}.face{padding:32px 16px}.controls{grid-template-columns:1fr 1.2fr 1fr;gap:7px}.controls .btn{font-size:13px}.count strong{font-size:23px}}
+@media(prefers-reduced-motion:reduce){*,*::before,*::after{transition-duration:.01ms!important;animation-duration:.01ms!important}}
+</style>
+<script defer src="./bank.js"></script>
+<script defer src="./app.js"></script>
+</head>
+<body>
+<header class="sitebar"><div class="bar-inner"><div class="logo"><span class="symbol">H</span><span>ХИМИЯ <small>НЕОРГАНИКА · ТРЕНАЖЁР</small></span></div><div class="top-note"><span class="dot"></span>Без тестов и оценок</div></div></header>
+<main class="main">
+<section class="intro"><div><p class="kicker">ЗАПОМИНАЙТЕ БЕЗ ЗУБРЁЖКИ</p><h1>Химия на карточках.</h1><p class="desc">Посмотрите на формулу или начало реакции, вспомните ответ и переверните карточку. Никаких полей ввода и автоматических проверок.</p></div><div class="counts"><div class="count"><strong id="total-names">—</strong><span>веществ</span></div><div class="count"><strong id="total-reactions">—</strong><span>реакций</span></div></div></section>
+<section class="workspace" aria-label="Тренажёр">
+<div class="tabs" role="group" aria-label="Тип карточек">
+<button type="button" class="tab active" id="tab-names" aria-pressed="true"><span class="emoji">◈</span> Названия веществ<small>Формула ↔ название</small></button>
+<button type="button" class="tab" id="tab-reactions" aria-pressed="false"><span class="emoji">⇄</span> Продукты реакций<small>Реагенты → продукты</small></button>
+</div>
+<div class="toolbar">
+<div class="field" id="direction-wrap"><label for="direction">Что показывать первым</label><select id="direction"><option value="formula">Формулу → название</option><option value="name">Название → формулу</option></select></div>
+<div class="field"><label for="topic">Раздел</label><select id="topic"></select></div>
+<button type="button" class="btn shuffle" id="shuffle">⤨ Перемешать</button>
+</div>
+<div class="deck-header"><div class="deck-meta"><span class="deck-badge" id="badge">ОКСИДЫ</span><span class="deck-label" id="deck-label">Карточки для повторения</span></div><span class="deck-progress" id="progress-text">1 / 1</span></div><div class="track" role="progressbar" aria-label="Положение в колоде" aria-valuemin="0" aria-valuemax="100"><div class="fill" id="progress-fill"></div></div>
+<button type="button" class="flip" id="flashcard" aria-label="Перевернуть карточку" aria-pressed="false">
+<span class="flip-inner">
+<span class="face front" id="front" aria-hidden="false"><span class="face-label" id="front-label">ВСПОМНИТЕ НАЗВАНИЕ</span><span class="main-formula" id="front-main"></span><span class="secondary-text" id="front-sub"></span><span class="flip-tip">↻ Нажмите, чтобы увидеть ответ</span></span>
+<span class="face back" id="back" aria-hidden="true"><span class="face-label">ОТВЕТ</span><span class="main-formula" id="back-main"></span><span class="answer-note" id="back-sub"></span><span class="flip-tip">↻ Нажмите, чтобы вернуться к вопросу</span></span>
+</span>
+</button>
+<div class="controls"><button type="button" class="btn" id="prev">← Назад</button><button type="button" class="btn primary" id="flip-button">↻ Перевернуть</button><button type="button" class="btn" id="next">Далее →</button></div>
+<div class="help"><span>Прогресс по колоде — только номер карточки, без оценки правильности.</span><span class="keyboard"><kbd>Пробел</kbd> переворот · <kbd>←</kbd> <kbd>→</kbd> переход</span></div>
+</section>
+<footer>По трём предоставленным материалам по неорганической химии · Данные о занятиях не собираются · Работает на телефоне и компьютере</footer>
+</main>
+<noscript><div class="empty">Для тренажёра необходимо включить JavaScript.</div></noscript>
+</body></html>
