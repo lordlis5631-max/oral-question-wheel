@@ -28,9 +28,9 @@ h1{font-size:clamp(32px,4.5vw,54px);letter-spacing:-.06em;line-height:1.04;margi
 .count{background:#fff;border:1px solid var(--border);border-radius:18px;min-width:122px;padding:16px 17px;box-shadow:0 8px 22px #13233f05}
 .count strong{font-size:27px;display:block;letter-spacing:-.05em}.count span{font-size:12px;color:var(--muted);font-weight:600}
 .workspace{background:rgba(255,255,255,.77);border:1px solid #e1e7ec;border-radius:27px;box-shadow:var(--shadow);padding:25px}
-.tabs{display:grid;grid-template-columns:1fr 1fr;gap:8px;background:#f1f4f5;padding:6px;border-radius:17px;margin-bottom:24px}
+.tabs{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px;background:#f1f4f5;padding:6px;border-radius:17px;margin-bottom:24px}
 .tab{border:0;background:transparent;border-radius:12px;padding:15px 20px;color:#64758a;font-weight:800;text-align:center;transition:background .2s,color .2s,box-shadow .2s}
-.tab.active{background:#fff;color:#142d43;box-shadow:0 3px 12px #1b304b12}
+.tab.active{background:#fff;color:#142d43;box-shadow:0 3px 12px #1b304b12}.tab#tab-special.active{background:#fff5e9;color:#95501e}.tab#tab-quality.active{background:#eef4ff;color:#2b5c9f}
 .tab .emoji{margin-right:9px}.tab small{display:block;font-size:11px;color:#7b8a9b;font-weight:500;margin-top:4px}
 .toolbar{display:grid;grid-template-columns:1fr 1fr auto;gap:15px;align-items:end;margin-bottom:20px}
 .field label{display:block;color:#65758a;font-size:12px;font-weight:800;letter-spacing:.02em;margin-bottom:8px}
@@ -71,7 +71,7 @@ kbd{font:inherit;color:#4e6074;background:#eef2f4;border:1px solid #dde4e9;borde
 footer{color:#8493a1;font-size:12px;line-height:1.6;text-align:center;padding:23px 0 4px}
 .empty{padding:50px;text-align:center;background:#fff;border-radius:16px;color:#52647a}
 [hidden]{display:none!important}
-@media(max-width:760px){.main{padding:35px 0 20px}.intro{align-items:start;flex-direction:column}.counts{width:100%}.count{min-width:0;flex:1}.workspace{padding:14px;border-radius:20px}.toolbar{grid-template-columns:1fr 1fr}.btn.shuffle{grid-column:1/-1}.flip{height:350px}.face{padding:31px 22px}.face-label{top:22px}.controls .btn{padding:11px 6px}.help{display:block;text-align:center}.help .keyboard{display:none}}
+@media(max-width:760px){.tabs{grid-template-columns:repeat(2,minmax(0,1fr))}.main{padding:35px 0 20px}.intro{align-items:start;flex-direction:column}.counts{width:100%}.count{min-width:0;flex:1}.workspace{padding:14px;border-radius:20px}.toolbar{grid-template-columns:1fr 1fr}.btn.shuffle{grid-column:1/-1}.flip{height:350px}.face{padding:31px 22px}.face-label{top:22px}.controls .btn{padding:11px 6px}.help{display:block;text-align:center}.help .keyboard{display:none}}
 @media(max-width:480px){.bar-inner,.main{width:calc(100% - 26px)}.sitebar{height:68px}.logo{font-size:16px}.symbol{width:39px;height:39px}.top-note{font-size:11px}.tabs{gap:2px;padding:4px}.tab{padding:12px 8px;font-size:13px}.tab small{font-size:10px}.toolbar{grid-template-columns:1fr}.btn.shuffle{grid-column:auto}.flip{height:320px}.main-formula{font-size:clamp(33px,9vw,54px)}.equation{font-size:clamp(23px,5.5vw,31px)}.main-formula.name{font-size:31px}.face{padding:32px 16px}.controls{grid-template-columns:1fr 1.2fr 1fr;gap:7px}.controls .btn{font-size:13px}.count strong{font-size:23px}}
 @media(prefers-reduced-motion:reduce){*,*::before,*::after{transition-duration:.01ms!important;animation-duration:.01ms!important}}
 </style>
@@ -79,16 +79,19 @@ footer{color:#8493a1;font-size:12px;line-height:1.6;text-align:center;padding:23
 <script defer src="./extra-reactions.js"></script>
 <script defer src="./special-part2.js"></script>
 <script defer src="./special-part3.js"></script>
+<script defer src="./categories.js"></script>
 <script defer src="./app.js"></script>
 </head>
 <body>
 <header class="sitebar"><div class="bar-inner"><div class="logo"><span class="symbol">H</span><span>ХИМИЯ <small>НЕОРГАНИКА · ТРЕНАЖЁР</small></span></div><div class="top-note"><span class="dot"></span>Без тестов и оценок</div></div></header>
 <main class="main">
-<section class="intro"><div><p class="kicker">ЗАПОМИНАЙТЕ БЕЗ ЗУБРЁЖКИ</p><h1>Химия на карточках.</h1><p class="desc">Посмотрите на формулу или начало реакции, вспомните ответ и переверните карточку. Никаких полей ввода и автоматических проверок. В разделе реакций можно отдельно выбрать <b>«★ Все особые реакции»</b>.</p></div><div class="counts"><div class="count"><strong id="total-names">—</strong><span>веществ</span></div><div class="count"><strong id="total-reactions">—</strong><span>реакций</span></div></div></section>
+<section class="intro"><div><p class="kicker">ЗАПОМИНАЙТЕ БЕЗ ЗУБРЁЖКИ</p><h1>Химия на карточках.</h1><p class="desc">Посмотрите на формулу или начало реакции, вспомните ответ и переверните карточку. Никаких полей ввода и автоматических проверок. <b>Особые реакции</b> выделены отдельно от <b>качественных</b> — осадков, окраски и выделения диагностических газов.</p></div><div class="counts"><div class="count"><strong id="total-names">—</strong><span>веществ</span></div><div class="count"><strong id="total-reactions">—</strong><span>реакций</span></div></div></section>
 <section class="workspace" aria-label="Тренажёр">
 <div class="tabs" role="group" aria-label="Тип карточек">
 <button type="button" class="tab active" id="tab-names" aria-pressed="true"><span class="emoji">◈</span> Названия веществ<small>Формула ↔ название</small></button>
-<button type="button" class="tab" id="tab-reactions" aria-pressed="false"><span class="emoji">⇄</span> Продукты реакций<small>Реагенты → продукты</small></button>
+<button type="button" class="tab" id="tab-reactions" aria-pressed="false"><span class="emoji">⇄</span> Все реакции<small>Весь банк без исключений</small></button>
+<button type="button" class="tab" id="tab-special" aria-pressed="false"><span class="emoji">★</span> Особые реакции<small><span id="special-count">—</span> нестандартных случаев</small></button>
+<button type="button" class="tab" id="tab-quality" aria-pressed="false"><span class="emoji">◉</span> Качественные реакции<small><span id="quality-count">—</span> примеров с признаками</small></button>
 </div>
 <div class="toolbar">
 <div class="field" id="direction-wrap"><label for="direction">Что показывать первым</label><select id="direction"><option value="formula">Формулу → название</option><option value="name">Название → формулу</option></select></div>
