@@ -39,7 +39,7 @@ select{appearance:none;background:#fff url("data:image/svg+xml,%3Csvg xmlns='htt
 .btn:hover{background:#f4f9f7}.btn:active{transform:scale(.98)}
 .btn.shuffle{white-space:nowrap}
 .deck-header{display:flex;align-items:center;justify-content:space-between;gap:14px;padding:15px 2px 13px}
-.deck-meta{display:flex;gap:11px;align-items:center}.deck-badge{background:#e4f4ec;color:#157c62;border-radius:7px;padding:7px 10px;font-size:11px;font-weight:900;letter-spacing:.07em;text-transform:uppercase}.deck-label{font-size:13px;color:var(--muted);font-weight:650}
+.deck-meta{display:flex;gap:11px;align-items:center;flex-wrap:wrap;min-width:0}.deck-badge{line-height:1.4;white-space:normal;background:#e4f4ec;color:#157c62;border-radius:7px;padding:7px 10px;font-size:11px;font-weight:900;letter-spacing:.07em;text-transform:uppercase}.deck-label{font-size:13px;color:var(--muted);font-weight:650}
 .deck-progress{font-size:14px;color:#586a80;font-weight:800;font-variant-numeric:tabular-nums}
 .track{height:6px;background:#e8eded;border-radius:20px;overflow:hidden;margin-bottom:24px}.fill{height:100%;background:linear-gradient(90deg,#4ecb9c,#11927f);width:0%;transition:width .25s ease;border-radius:20px}
 .flip{perspective:1200px;display:block;position:relative;width:100%;height:395px;border:0;background:none;padding:0;cursor:pointer;text-align:center}
@@ -76,12 +76,15 @@ footer{color:#8493a1;font-size:12px;line-height:1.6;text-align:center;padding:23
 @media(prefers-reduced-motion:reduce){*,*::before,*::after{transition-duration:.01ms!important;animation-duration:.01ms!important}}
 </style>
 <script defer src="./bank.js"></script>
+<script defer src="./extra-reactions.js"></script>
+<script defer src="./special-part2.js"></script>
+<script defer src="./special-part3.js"></script>
 <script defer src="./app.js"></script>
 </head>
 <body>
 <header class="sitebar"><div class="bar-inner"><div class="logo"><span class="symbol">H</span><span>ХИМИЯ <small>НЕОРГАНИКА · ТРЕНАЖЁР</small></span></div><div class="top-note"><span class="dot"></span>Без тестов и оценок</div></div></header>
 <main class="main">
-<section class="intro"><div><p class="kicker">ЗАПОМИНАЙТЕ БЕЗ ЗУБРЁЖКИ</p><h1>Химия на карточках.</h1><p class="desc">Посмотрите на формулу или начало реакции, вспомните ответ и переверните карточку. Никаких полей ввода и автоматических проверок.</p></div><div class="counts"><div class="count"><strong id="total-names">—</strong><span>веществ</span></div><div class="count"><strong id="total-reactions">—</strong><span>реакций</span></div></div></section>
+<section class="intro"><div><p class="kicker">ЗАПОМИНАЙТЕ БЕЗ ЗУБРЁЖКИ</p><h1>Химия на карточках.</h1><p class="desc">Посмотрите на формулу или начало реакции, вспомните ответ и переверните карточку. Никаких полей ввода и автоматических проверок. В разделе реакций можно отдельно выбрать <b>«★ Все особые реакции»</b>.</p></div><div class="counts"><div class="count"><strong id="total-names">—</strong><span>веществ</span></div><div class="count"><strong id="total-reactions">—</strong><span>реакций</span></div></div></section>
 <section class="workspace" aria-label="Тренажёр">
 <div class="tabs" role="group" aria-label="Тип карточек">
 <button type="button" class="tab active" id="tab-names" aria-pressed="true"><span class="emoji">◈</span> Названия веществ<small>Формула ↔ название</small></button>
