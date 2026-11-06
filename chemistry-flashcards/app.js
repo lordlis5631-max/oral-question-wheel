@@ -1,15 +1,20 @@
 (function(){
 "use strict";
 const bank=window.CHEM_BANK;
+const groups=window.CHEM_CARD_GROUPS||{specialIds:[],qualityIds:[]};
+const specialIds=new Set(groups.specialIds),qualityIds=new Set(groups.qualityIds);
+const categoryFor=id=>qualityIds.has(id)?"quality":specialIds.has(id)?"special":"standard";
 if(bank&&Array.isArray(bank.reactions)){
  const extras=[...(window.CHEM_EXTRA||[]),...(window.CHEM_EXTRA_2||[]),...(window.CHEM_EXTRA_3||[])];
  const merged=new Map();
  for(const card of [...bank.reactions,...extras]){
   const key=card.lhs.replace(/\s+/g,"")+"→"+card.rhs.replace(/\s+/g,"");
-  if(!merged.has(key))merged.set(key,{...card});
-  else if(card.special){
+  const category=categoryFor(card.id);
+  if(!merged.has(key))merged.set(key,{...card,category});
+  else {
    const first=merged.get(key);
-   first.special=true;
+   if(first.category==="standard"&&category!=="standard")first.category=category;
+   if(category==="quality")first.category="quality";
    if(!first.source&&card.source)first.source=card.source;
   }
  }
@@ -24,20 +29,20 @@ const key="chemistry-flashcards-2026-v1";
 const defaults={mode:"names",direction:"formula",topic:"all",queue:[],pos:0,flipped:false};
 let state={...defaults};
 try{const saved=JSON.parse(localStorage.getItem(key)||"null");if(saved&&typeof saved==="object")state={...defaults,...saved};}catch(_){}
-if(!["names","reactions"].includes(state.mode))state.mode="names";
+if(!["names","reactions","special","quality"].includes(state.mode))state.mode="names";
+if(state.mode==="reactions"&&state.topic==="__special__"){state.mode="special";state.topic="all";}
 if(!["formula","name"].includes(state.direction))state.direction="formula";
-const dataFor=()=>state.mode==="names"?bank.compounds:bank.reactions;
+const dataFor=()=>state.mode==="names"?bank.compounds:state.mode==="reactions"?bank.reactions:bank.reactions.filter(x=>x.category===state.mode);
 const escapeHTML=s=>String(s).replace(/[&<>"']/g,function(c){return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c];});
 const chem=s=>escapeHTML(s).replace(/([A-Za-z\)\]])(\d+)/g,"$1<sub>$2</sub>");
 function save(){try{localStorage.setItem(key,JSON.stringify(state));}catch(_){}}
 function shuffle(a){a=a.slice();for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]];}return a;}
 function topics(){return [...new Set(dataFor().map(x=>x.topic))];}
-function selected(){return dataFor().filter(x=>state.topic==="all"||(state.topic==="__special__"&&!!x.special)||x.topic===state.topic);}
+function selected(){return dataFor().filter(x=>state.topic==="all"||x.topic===state.topic);}
 function refreshTopicOptions(){
  const ts=topics();
- if(state.topic!=="all"&&!(state.topic==="__special__"&&state.mode==="reactions")&&!ts.includes(state.topic))state.topic="all";
- const special=state.mode==="reactions"?'<option value="__special__">★ Все особые реакции ('+dataFor().filter(x=>x.special).length+')</option>':"";
- get("topic").innerHTML='<option value="all">Все темы</option>'+special+ts.map(t=>'<option value="'+escapeHTML(t)+'">'+escapeHTML(t)+'</option>').join("");
+ if(state.topic!=="all"&&!ts.includes(state.topic))state.topic="all";
+ get("topic").innerHTML='<option value="all">Все темы</option>'+ts.map(t=>'<option value="'+escapeHTML(t)+'">'+escapeHTML(t.replace(/^Особые:\s*/,""))+'</option>').join("");
  get("topic").value=state.topic;
 }
 function resetDeck(randomize){
@@ -68,7 +73,7 @@ function applyNames(card){
  get("back-sub").textContent=frontIsFormula?"Формула: "+card.formula:"Название: "+card.name;
 }
 function applyReaction(card){
- text(get("front-label"),"НАЗОВИТЕ ПРОДУКТЫ РЕАКЦИИ");
+ text(get("front-label"),state.mode==="quality"?"НАЗОВИТЕ ПРОДУКТЫ И ПРИЗНАК РЕАКЦИИ":"НАЗОВИТЕ ПРОДУКТЫ РЕАКЦИИ");
  const a=get("front-main"),b=get("back-main");
  a.className="main-formula react";b.className="equation";
  a.innerHTML=chem(card.lhs)+" <span style='color:#128871'>→ ?</span>";
@@ -80,20 +85,22 @@ function applyReaction(card){
 }
 function render(){
  const mode=state.mode;
- get("tab-names").classList.toggle("active",mode==="names");
- get("tab-reactions").classList.toggle("active",mode==="reactions");
- get("tab-names").setAttribute("aria-pressed",String(mode==="names"));
- get("tab-reactions").setAttribute("aria-pressed",String(mode==="reactions"));
- get("direction-wrap").hidden=mode==="reactions";
+ for(const value of ["names","reactions","special","quality"]){
+  get("tab-"+value).classList.toggle("active",mode===value);
+  get("tab-"+value).setAttribute("aria-pressed",String(mode===value));
+ }
+ get("direction-wrap").hidden=mode!=="names";
  get("direction").value=state.direction;
  get("total-names").textContent=bank.compounds.length;
  get("total-reactions").textContent=bank.reactions.length;
+ get("special-count").textContent=bank.reactions.filter(x=>x.category==="special").length;
+ get("quality-count").textContent=bank.reactions.filter(x=>x.category==="quality").length;
  const cards=new Map(dataFor().map(c=>[c.id,c]));
  const card=cards.get(state.queue[state.pos]);
  if(!card){text(get("progress-text"),"0 / 0");text(get("deck-label"),"Нет карточек");get("flashcard").hidden=true;return;}
  get("flashcard").hidden=false;
- text(get("badge"),card.topic);
- text(get("deck-label"),state.topic==="all"?"Все темы · "+state.queue.length+" карточек":state.topic==="__special__"?"Особые реакции · "+state.queue.length+" карточек":state.queue.length+" карточек в разделе");
+ text(get("badge"),card.topic.replace(/^Особые:\s*/,""));
+ text(get("deck-label"),state.topic==="all"?(mode==="special"?"Нестандартные случаи":mode==="quality"?"Признаки реакций":mode==="reactions"?"Все реакции":"Все вещества")+" · "+state.queue.length+" карточек":state.queue.length+" карточек в разделе");
  text(get("progress-text"),(state.pos+1)+" / "+state.queue.length);
  get("progress-fill").style.width=(((state.pos+1)/state.queue.length)*100)+"%";
  get("prev").disabled=state.pos===0;
@@ -115,6 +122,8 @@ function move(delta){
 }
 get("tab-names").addEventListener("click",()=>setMode("names"));
 get("tab-reactions").addEventListener("click",()=>setMode("reactions"));
+get("tab-special").addEventListener("click",()=>setMode("special"));
+get("tab-quality").addEventListener("click",()=>setMode("quality"));
 get("direction").addEventListener("change",e=>{state.direction=e.target.value;state.flipped=false;save();render();});
 get("topic").addEventListener("change",e=>{state.topic=e.target.value;resetDeck(true);});
 get("shuffle").addEventListener("click",()=>resetDeck(true));
