@@ -6,8 +6,8 @@
   <meta name="description" content="Колесо устного опроса по русскому языку для 7–8 классов. Вопросы, подробные разборы и результаты занятия.">
   <title>Колесо устного опроса · Русский язык</title>
   <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Ccircle cx='32' cy='32' r='30' fill='%23155e59'/%3E%3Ctext x='32' y='44' text-anchor='middle' fill='white' font-size='38' font-family='serif'%3EР%3C/text%3E%3C/svg%3E">
-  <link rel="stylesheet" href="styles.css?v=8">
-  <script defer src="bank.js?v=7"></script><script defer src="core.js?v=8"></script><script defer src="app.js?v=8"></script>
+  <link rel="stylesheet" href="styles.css?v=9">
+  <script defer src="bank.js?v=7"></script><script defer src="core.js?v=8"></script><script defer src="app.js?v=9"></script>
 </head>
 <body>
 <header class="topbar"><a href="#lesson" class="brand" aria-label="К занятию"><span class="brandmark">Р</span><span>РУССКИЙ ЯЗЫК<small>Практика · 7–8 классы</small></span></a><nav aria-label="Разделы"><button class="nav active" data-nav="lesson">Занятие</button><button class="nav" data-nav="results">Результаты <span id="result-count">0</span></button><button class="nav" data-nav="bank">Банк вопросов</button><button class="nav" data-nav="settings">Настройки</button></nav><button class="quiet" id="new-session">＋ Новое занятие</button></header>
@@ -41,7 +41,7 @@
  <label class="field">Сложность<select id="bank-level"></select></label>
  <label class="field">Класс<select id="bank-class"></select></label>
  <label class="field">Участие в колесе<select id="bank-status"><option value="">Все вопросы</option><option value="enabled">Включённые</option><option value="disabled">Отключённые</option></select></label>
- </div><p class="micro">Фильтр класса показывает и пройденные, и будущие темы. Допуск зависит от настроек выбранного класса. Отключение действует для всех классов в этом браузере и сохраняется между занятиями; история ответов остаётся.</p><p class="micro">Ответы здесь предназначены для учителя. Для опроса вернитесь во вкладку «Занятие».</p></div>
+ </div><div class="bank-help-row"><span class="teacher-hint">Ответы открываются отдельно в каждой карточке</span><details class="bank-help"><summary>Как работают фильтры и отключения</summary><p>Фильтр класса показывает и пройденные, и будущие темы. Допуск зависит от настроек выбранного класса.</p><p>Отключение действует для всех классов в этом браузере и сохраняется между занятиями; история ответов остаётся. Для опроса вернитесь во вкладку «Занятие».</p></details></div></div>
  <p id="bank-count" class="muted" role="status" aria-live="polite"></p><div id="bank-list" class="bank-list"></div>
  <div class="bank-pagination"><button class="quiet" id="bank-prev">← Назад</button><span id="bank-page"></span><button class="quiet" id="bank-next">Далее →</button></div>
 </section>
