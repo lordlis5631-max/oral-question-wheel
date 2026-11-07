@@ -66,3 +66,4 @@ body.projector-mode .projector-exit{min-height:42px;background:var(--white);z-in
 .question-content{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif}.question-example{font-family:var(--serif)}
 body.projector-mode[data-lesson-screen="question"] .question-panel.question-long .question-text{font-size:clamp(26px,2vw,32px);line-height:1.55}
 @media(min-width:901px){body.projector-mode[data-lesson-screen="question"] .question-panel.question-long{padding:30px 36px}}
+.results-toolbar{display:flex;flex-wrap:wrap;align-items:end;gap:16px}.results-toolbar>.field{flex:1 1 170px;min-width:140px}.results-toolbar>.segmented{flex-wrap:wrap;align-self:end;margin-bottom:17px}.results-toolbar .segmented button{white-space:nowrap}.journal-grades{font-size:21px;color:var(--teal);font-weight:650;font-variant-numeric:tabular-nums}#repeat-link{padding-left:0;font-size:12px}#repeat-count{margin:12px 0 20px}
