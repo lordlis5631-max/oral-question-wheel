@@ -6,8 +6,8 @@
   <meta name="description" content="Колесо устного опроса по русскому языку для 7–8 классов. Вопросы, подробные разборы и результаты занятия.">
   <title>Колесо устного опроса · Русский язык</title>
   <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Ccircle cx='32' cy='32' r='30' fill='%23155e59'/%3E%3Ctext x='32' y='44' text-anchor='middle' fill='white' font-size='38' font-family='serif'%3EР%3C/text%3E%3C/svg%3E">
-  <link rel="stylesheet" href="styles.css?v=12">
-  <script defer src="bank.js?v=14"></script><script defer src="core.js?v=12"></script><script defer src="app.js?v=12"></script>
+  <link rel="stylesheet" href="styles.css?v=15">
+  <script defer src="bank.js?v=14"></script><script defer src="core.js?v=12"></script><script defer src="question-view.js?v=1"></script><script defer src="app.js?v=15"></script>
 </head>
 <body>
 <header class="topbar"><a href="#lesson" class="brand" aria-label="К занятию"><span class="brandmark">Р</span><span>РУССКИЙ ЯЗЫК<small>Практика · 7–8 классы</small></span></a><nav aria-label="Разделы"><button class="nav active" data-nav="lesson">Занятие</button><button class="nav" data-nav="results">Результаты <span id="result-count">0</span></button><button class="nav" data-nav="bank">Банк вопросов</button><button class="nav" data-nav="settings">Настройки</button></nav><button class="quiet" id="new-session">＋ Новое занятие</button></header>
@@ -17,11 +17,17 @@
 <section id="lesson-view">
   <div class="intro"><div><p class="eyebrow">СЛОВО — УЧЕНИКУ</p><h1>Колесо устного опроса</h1><p class="muted">Выберите режим, уровни и ученика.</p></div><div class="lesson-tag"><span class="status-dot"></span><span id="session-label"></span></div></div>
   <div id="wheel-screen" class="lesson-grid">
-    <aside class="panel setup"><div class="panel-label"><span>01</span> Настройка занятия</div>
+    <details class="panel lesson-settings" id="lesson-settings" open>
+      <summary><span class="settings-summary-text"><span class="eyebrow">НАСТРОЙКИ ЗАНЯТИЯ</span><strong id="lesson-settings-summary"></strong></span><span class="settings-toggle-label"><span class="when-closed">Изменить</span><span class="when-open">Свернуть</span><span aria-hidden="true">⌄</span></span></summary>
+      <div class="lesson-settings-body">
       <label class="field">Режим опроса<select id="lesson-mode"><option value="general">Общий опрос · колесо разделов</option><option value="topic">Текущая тема · случайный вопрос</option></select></label><label class="field" id="current-topic-field" hidden>Тема<select id="current-topic"></select></label>
       <fieldset><legend>Классы <small>Можно несколько</small></legend><div id="class-chips" class="chips"></div></fieldset>
       <fieldset><legend>Сложность <small>Можно несколько</small></legend><div id="level-chips" class="chips levels"></div></fieldset>
-      <div class="divider"></div><div class="panel-label"><span>02</span> Кто отвечает?</div>
+
+        <div class="settings-done-row"><p class="micro">Настройки применяются сразу. Сверните панель, когда будете готовы к опросу.</p><button class="primary" id="apply-lesson-settings">Готово — к опросу →</button></div>
+      </div>
+    </details>
+    <aside class="panel setup student-panel"><div class="panel-label"><span>01</span> Кто отвечает?</div>
       <label class="field">Класс ученика<select id="student-class"></select></label>
       <label class="field">Имя ученика<input id="student-name" maxlength="80" placeholder="Например, Анна Иванова" autocomplete="off" list="student-list"><datalist id="student-list"></datalist></label>
       <div id="resume-note" class="note" hidden></div>
@@ -30,7 +36,7 @@
     </aside>
     <div class="wheel-area" id="wheel-display"><div class="wheel-caption"><span class="eyebrow">ШЕСТЬ РАЗДЕЛОВ · СЛУЧАЙНЫЙ ВЫБОР</span><div class="wheel-tools"><button class="text-button" id="sections-link">Выбрать разделы</button><button class="quiet projector-toggle" id="projector-toggle" aria-pressed="false" title="Увеличить колесо для показа с проектора">⛶ Режим проектора</button></div></div><div class="wheel-wrap"><div class="pointer" aria-hidden="true"></div><svg id="wheel" viewBox="0 0 600 600" aria-label="Колесо разделов русского языка" role="img"></svg><div class="wheel-center" aria-hidden="true">Слово<br><strong>за вами</strong><span>✦</span></div></div><p id="wheel-status" class="wheel-status" role="status" aria-live="polite">Любой вопрос — повод разобраться.</p><div class="wheel-foot"><span>160 вопросов общего опроса</span><span>Без повторов в занятии</span></div></div>
     <div class="panel topic-display" id="topic-display" hidden>
-      <p class="eyebrow">ТЕКУЩАЯ ТЕМА · СЛУЧАЙНЫЙ ВОПРОС</p><div class="topic-symbol" aria-hidden="true">§</div>
+      <div class="topic-display-tools"><p class="eyebrow">ТЕКУЩАЯ ТЕМА · СЛУЧАЙНЫЙ ВОПРОС</p><button class="quiet" data-action="projector" aria-pressed="false">⛶ Режим проектора</button></div><div class="topic-symbol" aria-hidden="true">§</div>
       <h2 id="current-topic-title"></h2><p id="current-topic-description" class="muted"></p>
       <div id="current-topic-counts" class="topic-count-grid"></div>
       <div id="current-topic-access" class="note" role="status"></div>
